@@ -1,8 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm install && npm run build",
-  "outputDirectory": "dist",
-  "nodejs": "22.x",
+  "public": "dist",
   "routes": [
     {
       "src": "/assets/(.*)",
