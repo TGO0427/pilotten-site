@@ -9,46 +9,90 @@ const APPLY_LINK = '#apply'
 export default function App() {
   const [openForm, setOpenForm] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [mouseVelocity, setMouseVelocity] = useState({ x: 0, y: 0 })
+  const [scrollY, setScrollY] = useState(0)
   const containerRef = useRef<HTMLElement>(null)
+  const lastMousePos = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect()
-        setMousePosition({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top
+        const newX = e.clientX - rect.left
+        const newY = e.clientY - rect.top
+
+        setMouseVelocity({
+          x: (newX - lastMousePos.current.x) * 0.5,
+          y: (newY - lastMousePos.current.y) * 0.5
         })
+
+        setMousePosition({ x: newX, y: newY })
+        lastMousePos.current = { x: newX, y: newY }
       }
     }
 
+    const handleScroll = () => {
+      setScrollY(window.scrollY)
+    }
+
     window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   return (
     <main ref={containerRef} className="min-h-screen bg-slate-950 text-white relative overflow-hidden">
-      {/* Animated gradient blob following cursor */}
+      {/* Multiple animated gradient blobs with parallax */}
+      {[0, 1, 2].map((i) => (
+        <div
+          key={`blob-${i}`}
+          className="fixed pointer-events-none z-0 rounded-full blur-3xl"
+          style={{
+            width: '500px',
+            height: '500px',
+            left: `${20 + i * 30}%`,
+            top: `${10 + i * 20}%`,
+            transform: `translate(${mousePosition.x / (15 + i * 5)}px, ${mousePosition.y / (15 + i * 5)}px) translateZ(0)`,
+            background: i === 0
+              ? 'radial-gradient(circle, rgba(190, 255, 0, 0.25), transparent 70%)'
+              : i === 1
+              ? 'radial-gradient(circle, rgba(168, 85, 247, 0.25), transparent 70%)'
+              : 'radial-gradient(circle, rgba(245, 158, 11, 0.25), transparent 70%)',
+            transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+            willChange: 'transform'
+          }}
+          aria-hidden="true"
+        />
+      ))}
+
+      {/* Animated grid with parallax */}
       <div
-        className="fixed pointer-events-none z-0 w-96 h-96 rounded-full blur-3xl opacity-20 bg-gradient-to-r from-lime-300 via-purple-500 to-orange-500"
+        className="fixed inset-0 opacity-5 pointer-events-none z-0"
         style={{
-          left: mousePosition.x - 192,
-          top: mousePosition.y - 192,
-          transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+          backgroundImage: `
+            linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)
+          `,
+          backgroundSize: '60px 60px',
+          transform: `translate(${mousePosition.x / 40}px, ${mousePosition.y / 40}px)`,
+          transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+          willChange: 'transform'
         }}
-        aria-hidden="true"
       />
 
       <div className="relative z-10">
-        <Header onApply={() => setOpenForm(true)} />
-        <Hero onApply={() => setOpenForm(true)} />
+        <Header onApply={() => setOpenForm(true)} mousePosition={mousePosition} scrollY={scrollY} />
+        <Hero onApply={() => setOpenForm(true)} mousePosition={mousePosition} scrollY={scrollY} />
         <TrustBar />
-        <HowItWorks />
-        <WhyUs />
-        <Offers onApply={() => setOpenForm(true)} />
-        <FocusSectors />
+        <HowItWorks mousePosition={mousePosition} scrollY={scrollY} />
+        <WhyUs mousePosition={mousePosition} scrollY={scrollY} />
+        <Offers onApply={() => setOpenForm(true)} mousePosition={mousePosition} scrollY={scrollY} />
+        <FocusSectors mousePosition={mousePosition} scrollY={scrollY} />
         <FAQ />
-        <CTA onApply={() => setOpenForm(true)} />
+        <CTA onApply={() => setOpenForm(true)} mousePosition={mousePosition} scrollY={scrollY} />
         <Footer />
         {openForm && <ApplyModal onClose={() => setOpenForm(false)} />}
       </div>
@@ -56,7 +100,7 @@ export default function App() {
   )
 }
 
-function Header({ onApply }: { onApply: () => void }) {
+function Header({ onApply, mousePosition, scrollY }: { onApply: () => void; mousePosition: { x: number; y: number }; scrollY: number }) {
   const [scrolled, setScrolled] = React.useState(false)
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -65,7 +109,13 @@ function Header({ onApply }: { onApply: () => void }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
   return (
-    <header className={`sticky top-0 z-40 backdrop-blur bg-neutral-950/95 border-b border-white/10 transition-shadow ${scrolled ? 'shadow-[0_2px_12px_rgba(0,0,0,0.4)]' : ''}`}>
+    <header
+      className={`sticky top-0 z-40 backdrop-blur bg-neutral-950/95 border-b border-white/10 transition-shadow ${scrolled ? 'shadow-[0_2px_12px_rgba(0,0,0,0.4)]' : ''}`}
+      style={{
+        transform: `translateY(${Math.max(0, scrollY / 50) * -1}px)`,
+        transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+      }}
+    >
       <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Logo />
@@ -94,7 +144,7 @@ function Header({ onApply }: { onApply: () => void }) {
   )
 }
 
-function Hero({ onApply }: { onApply: () => void }) {
+function Hero({ onApply, mousePosition, scrollY }: { onApply: () => void; mousePosition: { x: number; y: number }; scrollY: number }) {
   return (
     <section className="relative overflow-hidden pt-32 pb-24 md:pb-40">
       {/* Digital grid background */}
@@ -118,7 +168,19 @@ function Hero({ onApply }: { onApply: () => void }) {
                 → Building MVPs & Traction
               </div>
             </div>
-            <h1 className="text-6xl md:text-8xl font-black leading-[0.95] tracking-tighter">
+            <h1
+              className="text-6xl md:text-8xl font-black leading-[0.95] tracking-tighter"
+              style={{
+                transform: `
+                  perspective(1500px)
+                  rotateX(${(mousePosition.y - 400) / 100}deg)
+                  rotateY(${(mousePosition.x - 600) / 100}deg)
+                  translateZ(${scrollY / 10}px)
+                `,
+                transition: 'transform 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+                transformStyle: 'preserve-3d'
+              }}
+            >
               We build your
               <br />
               <span className="text-lime-300 block">MVP</span>
@@ -184,7 +246,7 @@ function TrustBar() {
   )
 }
 
-function HowItWorks() {
+function HowItWorks({ mousePosition, scrollY }: { mousePosition: { x: number; y: number }; scrollY: number }) {
   const steps = [
     { num: '01', title: 'Apply', desc: 'Problem, customers, traction. We score for fit.', weeks: '1 week' },
     { num: '02', title: 'Validation', desc: 'Interviews, prototype, KPI sheet, pilot LOIs.', weeks: '2 weeks' },
@@ -199,7 +261,21 @@ function HowItWorks() {
 
       <div className="mx-auto max-w-7xl px-4">
         <div className="mb-20">
-          <h2 className="text-6xl md:text-7xl font-black">THE PROCESS</h2>
+          <h2
+            className="text-6xl md:text-7xl font-black"
+            style={{
+              transform: `
+                perspective(1500px)
+                rotateX(${(scrollY - 900) / 150}deg)
+                rotateY(${(mousePosition.x - 400) / 150}deg)
+                translateZ(${scrollY / 15}px)
+              `,
+              transition: 'transform 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+              transformStyle: 'preserve-3d'
+            }}
+          >
+            THE PROCESS
+          </h2>
           <div className="w-32 h-2 bg-lime-300 mt-6"></div>
         </div>
 
@@ -225,7 +301,7 @@ function HowItWorks() {
   )
 }
 
-function WhyUs() {
+function WhyUs({ mousePosition, scrollY }: { mousePosition: { x: number; y: number }; scrollY: number }) {
   const bullets = [
     { title: 'PERFORMANCE-TRIGGERED', desc: 'Equity vests only when KPIs hit.' },
     { title: 'VERTICAL MODULES', desc: 'Logistics, FMCG, Fintech building blocks.' },
@@ -237,7 +313,19 @@ function WhyUs() {
       <div className="mx-auto max-w-7xl px-4">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-5xl md:text-6xl font-black leading-tight">
+            <h2
+              className="text-5xl md:text-6xl font-black leading-tight"
+              style={{
+                transform: `
+                  perspective(1500px)
+                  rotateX(${(scrollY - 1400) / 150}deg)
+                  rotateY(${(mousePosition.x - 300) / 150}deg)
+                  translateZ(${scrollY / 20}px)
+                `,
+                transition: 'transform 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+                transformStyle: 'preserve-3d'
+              }}
+            >
               Built for
               <br />
               <span className="text-lime-300">OPERATORS.</span>
@@ -263,7 +351,7 @@ function WhyUs() {
   )
 }
 
-function Offers({ onApply }: { onApply: () => void }) {
+function Offers({ onApply, mousePosition, scrollY }: { onApply: () => void; mousePosition: { x: number; y: number }; scrollY: number }) {
   const [hoveredCard, setHoveredCard] = React.useState<number | null>(null)
 
   const cards = [
@@ -278,7 +366,21 @@ function Offers({ onApply }: { onApply: () => void }) {
       <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-lime-300 opacity-20"></div>
 
       <div className='mx-auto max-w-7xl px-4'>
-        <h2 className='text-6xl md:text-7xl font-black mb-24'>PICK YOUR TERMS.</h2>
+        <h2
+          className='text-6xl md:text-7xl font-black mb-24'
+          style={{
+            transform: `
+              perspective(1500px)
+              rotateX(${(scrollY - 1900) / 150}deg)
+              rotateY(${(mousePosition.x - 500) / 150}deg)
+              translateZ(${scrollY / 20}px)
+            `,
+            transition: 'transform 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+            transformStyle: 'preserve-3d'
+          }}
+        >
+          PICK YOUR TERMS.
+        </h2>
 
         <div className='grid md:grid-cols-3 gap-8'>
           {cards.map((c, i) => (
@@ -332,7 +434,7 @@ function Offers({ onApply }: { onApply: () => void }) {
   )
 }
 
-function FocusSectors() {
+function FocusSectors({ mousePosition, scrollY }: { mousePosition: { x: number; y: number }; scrollY: number }) {
   const [hoveredSector, setHoveredSector] = React.useState<number | null>(null)
 
   const sectors = [
@@ -343,7 +445,21 @@ function FocusSectors() {
   return (
     <section id='sectors' className='py-32'>
       <div className='mx-auto max-w-7xl px-4'>
-        <h2 className='text-6xl md:text-7xl font-black mb-20'>WE OWN<br />THREE SECTORS.</h2>
+        <h2
+          className='text-6xl md:text-7xl font-black mb-20'
+          style={{
+            transform: `
+              perspective(1500px)
+              rotateX(${(scrollY - 2400) / 150}deg)
+              rotateY(${(mousePosition.x - 500) / 150}deg)
+              translateZ(${scrollY / 20}px)
+            `,
+            transition: 'transform 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+            transformStyle: 'preserve-3d'
+          }}
+        >
+          WE OWN<br />THREE SECTORS.
+        </h2>
 
         <div className='grid md:grid-cols-3 gap-8'>
           {sectors.map((s, i) => (
@@ -406,11 +522,23 @@ function FAQ() {
   )
 }
 
-function CTA({ onApply }: { onApply: () => void }) {
+function CTA({ onApply, mousePosition, scrollY }: { onApply: () => void; mousePosition: { x: number; y: number }; scrollY: number }) {
   return (
     <section className='py-32 bg-black'>
       <div className='mx-auto max-w-5xl px-4 text-center'>
-        <h2 className='text-6xl md:text-8xl font-black leading-tight'>
+        <h2
+          className='text-6xl md:text-8xl font-black leading-tight'
+          style={{
+            transform: `
+              perspective(1500px)
+              rotateX(${(scrollY - 2900) / 150}deg)
+              rotateY(${(mousePosition.x - 600) / 150}deg)
+              translateZ(${scrollY / 20}px)
+            `,
+            transition: 'transform 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+            transformStyle: 'preserve-3d'
+          }}
+        >
           READY TO
           <br />
           <span className='text-lime-300'>BUILD & SELL?</span>
