@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const STUDIO_NAME = 'PilotTen'
 const CONTACT_EMAIL = 'hello@pilotten.africa'
-const BOOK_LINK = '#book'
+const BOOK_LINK = 'https://calendly.com/your-handle/20min' // ← replace with your real Calendly link
 const APPLY_LINK = '#apply'
 
 export default function App() {
@@ -40,7 +40,15 @@ function Header({ onApply }: { onApply: () => void }) {
           <Link to="/faq" className="hidden">FAQ</Link>
         </nav>
         <div className="flex items-center gap-3">
-          <a href={BOOK_LINK} className="hidden sm:inline-block text-sm px-3 py-2 rounded-xl border border-white/15 hover:border-white/30">Book 20‑min</a>
+          <a
+  href={BOOK_LINK}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-block text-sm px-3 py-2 rounded-xl border border-white/15 hover:border-white/30"
+>
+  Book 20-min
+</a>
+
           <button onClick={onApply} className="text-sm px-3 py-2 rounded-xl bg-white text-neutral-900 font-medium hover:opacity-90">Apply</button>
         </div>
       </div>
@@ -66,7 +74,7 @@ function Hero({ onApply }: { onApply: () => void }) {
             <button onClick={onApply} className="px-5 py-3 rounded-2xl bg-white text-neutral-900 font-medium">Apply now</button>
             <a href="#how" className="px-5 py-3 rounded-2xl border border-white/15 hover:border-white/30">How it works</a>
           </div>
-          <p className="mt-6 text-sm text-neutral-400">POPIA‑first • KPI‑gated terms • Operator mindset</p>
+          <p className="mt-6 text-sm text-neutral-400">POPIA-first • KPI-gated terms • Operator mindset</p>
         </div>
       </div>
     </section>
@@ -74,7 +82,7 @@ function Hero({ onApply }: { onApply: () => void }) {
 }
 
 function TrustBar() {
-  const items = ['POPIA', 'Security baseline', 'Analytics built‑in', 'Weekly demos']
+  const items = ['POPIA', 'Security baseline', 'Analytics built-in', 'Weekly demos']
   return (
     <div className="border-y border-white/10 bg-black/20">
       <div className="mx-auto max-w-7xl px-4 py-4 flex flex-wrap items-center justify-center gap-6 text-xs text-neutral-300">
@@ -114,10 +122,10 @@ function HowItWorks() {
 
 function WhyUs() {
   const bullets = [
-    { title: 'Performance‑triggered terms', desc: 'Equity or royalty vests only when KPIs are hit.' },
+    { title: 'Performance-triggered terms', desc: 'Equity or royalty vests only when KPIs are hit.' },
     { title: 'Vertical modules', desc: 'Logistics, FMCG, Fintech building blocks speed up delivery.' },
     { title: 'GTM included', desc: 'We help secure pilot customers and build the sales motion.' },
-    { title: 'Transparent legal', desc: 'SA‑ready SAFE/SSA, IP escrow, POPIA DPA.' },
+    { title: 'Transparent legal', desc: 'SA-ready SAFE/SSA, IP escrow, POPIA DPA.' },
   ]
   return (
     <section className="mx-auto max-w-7xl px-4 py-12">
@@ -144,8 +152,8 @@ function WhyUs() {
           <ul className="mt-4 space-y-2 text-sm text-neutral-300 list-disc pl-5">
             <li>Customer Problem Brief & Demand Signals report (LOIs/pilots)</li>
             <li>Clickable prototype of top 3 journeys (Figma)</li>
-            <li>MVP PRD + KPI sheet + 12‑week delivery plan</li>
-            <li>Term sheet options (Equity / Rev‑Share / Hybrid)</li>
+            <li>MVP PRD + KPI sheet + 12-week delivery plan</li>
+            <li>Term sheet options (Equity / Rev-Share / Hybrid)</li>
           </ul>
           <p className="mt-4 text-sm text-neutral-400">Fixed price, credited to build if we proceed.</p>
         </div>
@@ -156,14 +164,14 @@ function WhyUs() {
 
 function Offers({ onApply }: { onApply: () => void }) {
   const cards = [
-    { name: 'Equity', badge: 'Venture‑scale', points: ['0–40% cash','8–15% equity via SAFE','KPI‑gated vesting + buy‑back'] },
-    { name: 'Revenue‑Share (Capped)', badge: 'Bootstrapped', points: ['20–30% cash','8–12% of gross until 2.5×','2% tail for 18 months'] },
+    { name: 'Equity', badge: 'Venture-scale', points: ['0–40% cash','8–15% equity via SAFE','KPI-gated vesting + buy-back'] },
+    { name: 'Revenue-Share (Capped)', badge: 'Bootstrapped', points: ['20–30% cash','8–12% of gross until 2.5×','2% tail for 18 months'] },
     { name: 'Hybrid', badge: 'Blend', points: ['Small retainer','4–8% equity + 4–6% gross','Cap 1.5×, no tail'] },
   ]
   return (
     <section id='offers' className='mx-auto max-w-7xl px-4 py-20'>
-      <h2 className='text-2xl md:text-4xl font-bold tracking-tight'>Founder‑friendly terms</h2>
-      <p className='mt-3 text-neutral-300'>Transparent, POPIA‑compliant, KPI‑gated.</p>
+      <h2 className='text-2xl md:text-4xl font-bold tracking-tight'>Founder-friendly terms</h2>
+      <p className='mt-3 text-neutral-300'>Transparent, POPIA-compliant, KPI-gated.</p>
       <div className='mt-10 grid md:grid-cols-3 gap-6'>
         {cards.map((c) => (
           <div key={c.name} className='rounded-2xl border border-white/10 bg-white/5 p-6 flex flex-col'>
@@ -178,7 +186,7 @@ function Offers({ onApply }: { onApply: () => void }) {
           </div>
         ))}
       </div>
-      <p className='mt-6 text-xs text-neutral-400'>*Exact numbers set per project; see public Terms page for caps, vesting, and buy‑back formula.*</p>
+      <p className='mt-6 text-xs text-neutral-400'>*Exact numbers set per project; see public Terms page for caps, vesting, and buy-back formula.*</p>
     </section>
   )
 }
@@ -208,8 +216,8 @@ function FAQ() {
   const items = [
     { q: 'Do you take control?', a: 'No. We take a minority stake and operate alongside you for 6–9 months.' },
     { q: 'Who owns the IP?', a: 'Assigned to your company on milestone acceptance; held in escrow until then.' },
-    { q: 'How do you collect revenue‑share?', a: 'Payment‑processor split (PayFast/Peach/Yoco/Stripe) or monthly attestation with audit rights.' },
-    { q: 'Can I buy back equity?', a: 'Yes — see buy‑back formula on our Terms page once you hit scale.' },
+    { q: 'How do you collect revenue-share?', a: 'Payment-processor split (PayFast/Peach/Yoco/Stripe) or monthly attestation with audit rights.' },
+    { q: 'Can I buy back equity?', a: 'Yes — see buy-back formula on our Terms page once you hit scale.' },
   ]
   return (
     <section id='faq' className='mx-auto max-w-5xl px-4 py-20'>
@@ -239,7 +247,15 @@ function CTA({ onApply }: { onApply: () => void }) {
         <p className='mt-3 text-neutral-300'>We take a handful of founders each quarter.</p>
         <div className='mt-6 flex flex-wrap gap-3 justify-center'>
           <button onClick={onApply} className='px-5 py-3 rounded-2xl bg-white text-neutral-900 font-medium'>Apply now</button>
-          <a href={BOOK_LINK} className='px-5 py-3 rounded-2xl border border-white/15 hover:border-white/30'>Book 20‑min</a>
+          <a
+  href={BOOK_LINK}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="px-5 py-3 rounded-2xl border border-white/15 hover:border-white/30"
+>
+  Book 20-min
+</a>
+
         </div>
       </div>
     </section>
@@ -266,11 +282,35 @@ function Footer() {
 
 function ApplyModal({ onClose }: { onClose: () => void }) {
   function submit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    // TODO: replace with your Formspree/HubSpot endpoint or mailto link
-    alert("Application submitted! We'll reply within 48 hours.")
-    onClose()
+    e.preventDefault();
+    const form = e.currentTarget;
+
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    if (submitBtn) submitBtn.disabled = true;
+
+    const data = new FormData(form);
+    // Optional helpers:
+    // data.append('_subject', 'New PilotTen application');
+    // <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
+
+    fetch('https://formspree.io/f/REPLACE_ME', {  // ← paste your Formspree endpoint
+      method: 'POST',
+      body: data,
+    })
+      .then((r) => {
+        if (!r.ok) throw new Error('Bad response');
+        alert("Thanks! We’ll reply within 48 hours.");
+        form.reset();
+      })
+      .catch(() => {
+        alert("Submission failed. Please email hello@pilotten.africa");
+      })
+      .finally(() => {
+        if (submitBtn) submitBtn.disabled = false;
+        onClose();
+      });
   }
+
   return (
     <div className='fixed inset-0 z-50 grid place-items-center bg-black/60 p-4'>
       <div className='w-full max-w-2xl rounded-2xl border border-white/10 bg-neutral-950'>
@@ -279,6 +319,9 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
           <button onClick={onClose} className='text-neutral-400 hover:text-white'>✕</button>
         </div>
         <form onSubmit={submit} className='p-6 grid grid-cols-1 md:grid-cols-2 gap-4'>
+          {/* Honeypot to reduce spam (optional) */}
+          <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
+
           <Input label='Full name' name='name' required />
           <Input label='Email' name='email' type='email' required />
           <Input label='Company' name='company' />
@@ -295,7 +338,7 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
             <Label>Preferred model</Label>
             <select name='model' className='mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2'>
               <option>Equity</option>
-              <option>Revenue‑Share (Capped)</option>
+              <option>Revenue-Share (Capped)</option>
               <option>Hybrid</option>
             </select>
           </div>
