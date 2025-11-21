@@ -327,61 +327,64 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
             </div>
           </div>
         ) : (
-          <form onSubmit={submit} className="max-h-[75vh] overflow-auto">
-            {/* Form body */}
-            <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Honeypot */}
-              <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
+          <div className="flex flex-col max-h-[75vh]">
+            <form id="apply-form" onSubmit={submit} className="flex-1 overflow-auto">
+              {/* Form body */}
+              <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Honeypot */}
+                <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
 
-              <Input label="Full name" name="name" required />
-              <Input label="Email" name="email" type="email" required />
-              <Input label="Company" name="company" />
-              <Input label="Location" name="location" />
-              <div className="md:col-span-2">
-                <Label>Problem you solve</Label>
-                <textarea name="problem" required className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2" rows={3} />
-              </div>
-              <div className="md:col-span-2">
-                <Label>Evidence of demand (LOIs, pilots, waitlist, paying users)</Label>
-                <textarea name="evidence" className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2" rows={3} />
-              </div>
-              <div>
-                <Label>Preferred model</Label>
-                <select name="model" className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2">
-                  <option>Equity</option>
-                  <option>Revenue-Share (Capped)</option>
-                  <option>Hybrid</option>
-                </select>
-              </div>
-              <div>
-                <Label>Time commitment (hrs/week)</Label>
-                <input type="number" name="time" min={0} className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2" />
-              </div>
-              <div className="md:col-span-2">
-                <Label>Anything else we should know?</Label>
-                <textarea name="notes" className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2" rows={3} />
-              </div>
-              {state === 'error' && (
-                <div className="md:col-span-2 text-sm text-red-300">
-                  Submission failed. Please email hello@pilotten.africa
+                <Input label="Full name" name="name" required />
+                <Input label="Email" name="email" type="email" required />
+                <Input label="Company" name="company" />
+                <Input label="Location" name="location" />
+                <div className="md:col-span-2">
+                  <Label>Problem you solve</Label>
+                  <textarea name="problem" required className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2" rows={3} />
                 </div>
-              )}
-            </div>
+                <div className="md:col-span-2">
+                  <Label>Evidence of demand (LOIs, pilots, waitlist, paying users)</Label>
+                  <textarea name="evidence" className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2" rows={3} />
+                </div>
+                <div>
+                  <Label>Preferred model</Label>
+                  <select name="model" className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2">
+                    <option>Equity</option>
+                    <option>Revenue-Share (Capped)</option>
+                    <option>Hybrid</option>
+                  </select>
+                </div>
+                <div>
+                  <Label>Time commitment (hrs/week)</Label>
+                  <input type="number" name="time" min={0} className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2" />
+                </div>
+                <div className="md:col-span-2">
+                  <Label>Anything else we should know?</Label>
+                  <textarea name="notes" className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2" rows={3} />
+                </div>
+                {state === 'error' && (
+                  <div className="md:col-span-2 text-sm text-red-300">
+                    Submission failed. Please email hello@pilotten.africa
+                  </div>
+                )}
+              </div>
+            </form>
 
-            {/* Sticky action bar */}
-            <div className="sticky bottom-0 bg-neutral-950/95 backdrop-blur border-t border-white/10 px-6 py-4 flex items-center justify-end gap-3">
+            {/* Action bar - not scrollable */}
+            <div className="flex-shrink-0 bg-neutral-950/95 backdrop-blur border-t border-white/10 px-6 py-4 flex items-center justify-end gap-3">
               <button type="button" onClick={onClose} className="px-4 py-2 rounded-xl border border-white/15 hover:border-white/30">
                 Cancel
               </button>
               <button
                 type="submit"
+                form="apply-form"
                 disabled={state === 'sending'}
                 className="px-4 py-2 rounded-xl bg-white text-neutral-900 font-medium disabled:opacity-60"
               >
                 {state === 'sending' ? 'Sending…' : 'Submit'}
               </button>
             </div>
-          </form>
+          </div>
         )}
       </div>
     </div>
