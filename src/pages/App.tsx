@@ -301,16 +301,20 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
       headers: { Accept: 'application/json' },
     })
       .then(async (r) => {
+        console.log('Formspree response:', r.status, r.statusText);
         if (!r.ok) {
           const msg = await r.text().catch(() => '');
-          throw new Error(`Formspree: ${r.status} ${msg}`);
+          console.error('Error body:', msg);
+          throw new Error(`${r.status}: ${msg}`);
         }
+        const json = await r.json();
+        console.log('Success response:', json);
         (window as any)?.plausible?.('Application Submitted');
         e.currentTarget.reset();
         setState('success');
       })
       .catch((err) => {
-        console.error(err);
+        console.error('Submit error:', err);
         setState('error');
       });
   }
