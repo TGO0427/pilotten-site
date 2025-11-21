@@ -296,17 +296,16 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
     if (submitBtn) submitBtn.disabled = true;
 
     const data = new FormData(form);
-    // Optional helpers:
-    // data.append('_subject', 'New PilotTen application');
-    // <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
 
-    fetch('https://formspree.io/f/REPLACE_ME', {  // ← paste your Formspree endpoint
+    fetch('https://formspree.io/f/xwpygadw', {   // ← your live Formspree endpoint
       method: 'POST',
       body: data,
     })
       .then((r) => {
         if (!r.ok) throw new Error('Bad response');
-        alert("Thanks! We’ll reply within 48 hours.");
+        // Optional: Plausible event if you added tracking
+        (window as any)?.plausible?.('Application Submitted');
+        alert("Thanks! We'll reply within 48 hours.");
         form.reset();
       })
       .catch(() => {
