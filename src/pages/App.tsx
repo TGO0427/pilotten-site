@@ -9,7 +9,7 @@ const APPLY_LINK = '#apply'
 export default function App() {
   const [openForm, setOpenForm] = useState(false)
   return (
-    <main className="min-h-screen bg-gradient-to-b from-neutral-950 via-neutral-900 to-neutral-950 text-neutral-100">
+    <main className="min-h-screen bg-white text-neutral-900">
       <Header onApply={() => setOpenForm(true)} />
       <Hero onApply={() => setOpenForm(true)} />
       <TrustBar />
@@ -34,11 +34,11 @@ function Header({ onApply }: { onApply: () => void }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
   return (
-    <header className={`sticky top-0 z-40 backdrop-blur bg-neutral-950/70 border-b border-white/10 transition-shadow ${scrolled ? 'shadow-[0_2px_12px_rgba(0,0,0,0.4)]' : ''}`}>
+    <header className={`sticky top-0 z-40 backdrop-blur bg-neutral-950/95 border-b border-white/10 transition-shadow ${scrolled ? 'shadow-[0_2px_12px_rgba(0,0,0,0.4)]' : ''}`}>
       <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Logo />
-          <span className="font-semibold tracking-tight">{STUDIO_NAME}</span>
+          <span className="font-semibold tracking-tight text-white">{STUDIO_NAME}</span>
         </div>
         <nav className="hidden md:flex items-center gap-8 text-sm text-neutral-300">
           <a href="#how" className="hover:text-white">How it works</a>
@@ -51,7 +51,7 @@ function Header({ onApply }: { onApply: () => void }) {
             href={BOOK_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block text-sm px-3 py-2 rounded-xl border border-white/15 hover:border-white/30"
+            className="inline-block text-sm px-3 py-2 rounded-xl border border-white/15 hover:border-white/30 text-white"
           >
             Book 30-min
 
@@ -65,7 +65,7 @@ function Header({ onApply }: { onApply: () => void }) {
 
 function Hero({ onApply }: { onApply: () => void }) {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden bg-neutral-950 text-white">
       <div className="absolute inset-0 -z-10 opacity-30" aria-hidden>
         <GridBG />
       </div>
@@ -79,7 +79,7 @@ function Hero({ onApply }: { onApply: () => void }) {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <button onClick={onApply} className="px-5 py-3 rounded-2xl bg-white text-neutral-900 font-medium">Apply now</button>
-            <a href="#how" className="px-5 py-3 rounded-2xl border border-white/15 hover:border-white/30">How it works</a>
+            <a href="#how" className="px-5 py-3 rounded-2xl border border-white/15 hover:border-white/30 text-white">How it works</a>
           </div>
           <p className="mt-6 text-sm text-neutral-400">POPIA-first • KPI-gated terms • Operator mindset</p>
         </div>
@@ -91,7 +91,7 @@ function Hero({ onApply }: { onApply: () => void }) {
 function TrustBar() {
   const items = ['POPIA', 'SA legal templates (SAFE/SSA)', 'Analytics built-in', 'Weekly demos']
   return (
-    <div className="border-y border-white/10 bg-black/20">
+    <div className="border-y border-white/10 bg-neutral-950 text-white">
       <div className="mx-auto max-w-7xl px-4 py-4 flex flex-wrap items-center justify-center gap-6 text-xs text-neutral-300">
         {items.map((t) => (
           <span key={t} className="flex items-center gap-2">
@@ -112,16 +112,18 @@ function HowItWorks() {
     { title: 'Scale', desc: 'Stay with us as fractional CTO/PM/RevOps or transition to your team.' },
   ]
   return (
-    <section id="how" className="mx-auto max-w-7xl px-4 py-20">
-      <h2 className="text-2xl md:text-4xl font-bold tracking-tight">How it works</h2>
-      <div className="mt-10 grid md:grid-cols-5 gap-6">
-        {steps.map((s, i) => (
-          <div key={i} className="rounded-2xl p-5 border border-white/10 bg-white/5">
-            <div className="text-xs text-neutral-400">Step {i + 1}</div>
-            <div className="mt-2 font-semibold">{s.title}</div>
-            <p className="mt-2 text-sm text-neutral-300">{s.desc}</p>
-          </div>
-        ))}
+    <section id="how" className="bg-white text-neutral-900 py-20">
+      <div className="mx-auto max-w-7xl px-4">
+        <h2 className="text-2xl md:text-4xl font-bold tracking-tight">How it works</h2>
+        <div className="mt-10 grid md:grid-cols-5 gap-6">
+          {steps.map((s, i) => (
+            <div key={i} className="rounded-2xl p-5 border border-neutral-200 bg-neutral-50">
+              <div className="text-xs text-neutral-500">Step {i + 1}</div>
+              <div className="mt-2 font-semibold text-neutral-900">{s.title}</div>
+              <p className="mt-2 text-sm text-neutral-600">{s.desc}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -135,34 +137,36 @@ function WhyUs() {
     { title: 'Transparent legal', desc: 'SA-ready SAFE/SSA, IP escrow, POPIA DPA.' },
   ]
   return (
-    <section className="mx-auto max-w-7xl px-4 py-12">
-      <div className="grid md:grid-cols-2 gap-10 items-start">
-        <div>
-          <h2 className="text-2xl md:text-4xl font-bold tracking-tight">Why founders choose PilotTen</h2>
-          <p className="mt-4 text-neutral-300">
-            We’re operators, not just devs. We validate, build, and help sell your MVP.
-          </p>
-          <ul className="mt-6 space-y-3">
-            {bullets.map((b) => (
-              <li key={b.title} className="flex items-start gap-3">
-                <Check />
-                <div>
-                  <div className="font-medium">{b.title}</div>
-                  <p className="text-sm text-neutral-300">{b.desc}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-          <h3 className="font-semibold">Validation Sprint (2 weeks) – what you get</h3>
-          <ul className="mt-4 space-y-2 text-sm text-neutral-300 list-disc pl-5">
-            <li>Customer Problem Brief & Demand Signals report (LOIs/pilots)</li>
-            <li>Clickable prototype of top 3 journeys (Figma)</li>
-            <li>MVP PRD + KPI sheet + 12-week delivery plan</li>
-            <li>Term sheet options (Equity / Rev-Share / Hybrid)</li>
-          </ul>
-          <p className="mt-4 text-sm text-neutral-400">Fixed price, credited to build if we proceed.</p>
+    <section className="bg-white text-neutral-900 py-12">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="grid md:grid-cols-2 gap-10 items-start">
+          <div>
+            <h2 className="text-2xl md:text-4xl font-bold tracking-tight">Why founders choose PilotTen</h2>
+            <p className="mt-4 text-neutral-600">
+              We're operators, not just devs. We validate, build, and help sell your MVP.
+            </p>
+            <ul className="mt-6 space-y-3">
+              {bullets.map((b) => (
+                <li key={b.title} className="flex items-start gap-3">
+                  <Check />
+                  <div>
+                    <div className="font-medium text-neutral-900">{b.title}</div>
+                    <p className="text-sm text-neutral-600">{b.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+            <h3 className="font-semibold text-neutral-900">Validation Sprint (2 weeks) – what you get</h3>
+            <ul className="mt-4 space-y-2 text-sm text-neutral-700 list-disc pl-5">
+              <li>Customer Problem Brief & Demand Signals report (LOIs/pilots)</li>
+              <li>Clickable prototype of top 3 journeys (Figma)</li>
+              <li>MVP PRD + KPI sheet + 12-week delivery plan</li>
+              <li>Term sheet options (Equity / Rev-Share / Hybrid)</li>
+            </ul>
+            <p className="mt-4 text-sm text-neutral-600">Fixed price, credited to build if we proceed.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -176,24 +180,26 @@ function Offers({ onApply }: { onApply: () => void }) {
     { name: 'Hybrid', badge: 'Blend', points: ['Small retainer','4–8% equity + 4–6% gross','Cap 1.5×, no tail'] },
   ]
   return (
-    <section id='offers' className='mx-auto max-w-7xl px-4 py-20'>
-      <h2 className='text-2xl md:text-4xl font-bold tracking-tight'>Founder-friendly terms</h2>
-      <p className='mt-3 text-neutral-300'>Transparent, POPIA-compliant, KPI-gated.</p>
-      <div className='mt-10 grid md:grid-cols-3 gap-6'>
-        {cards.map((c) => (
-          <div key={c.name} className='rounded-2xl border border-white/10 bg-white/5 p-6 flex flex-col transition hover:border-white/20 hover:bg-white/[0.07]'>
-            <div className='text-xs text-neutral-400'>{c.badge}</div>
-            <div className='mt-1 text-xl font-semibold'>{c.name}</div>
-            <ul className='mt-4 space-y-2 text-sm text-neutral-300 list-disc pl-5'>
-              {c.points.map((p) => (<li key={p}>{p}</li>))}
-            </ul>
-            <div className='mt-6 pt-6 border-t border-white/10'>
-              <button onClick={onApply} className='w-full px-4 py-3 rounded-xl bg-white text-neutral-900 font-medium'>Apply</button>
+    <section id='offers' className='bg-white text-neutral-900 py-20'>
+      <div className='mx-auto max-w-7xl px-4'>
+        <h2 className='text-2xl md:text-4xl font-bold tracking-tight'>Founder-friendly terms</h2>
+        <p className='mt-3 text-neutral-600'>Transparent, POPIA-compliant, KPI-gated.</p>
+        <div className='mt-10 grid md:grid-cols-3 gap-6'>
+          {cards.map((c) => (
+            <div key={c.name} className='rounded-2xl border border-neutral-200 bg-neutral-50 p-6 flex flex-col transition hover:border-neutral-300 hover:bg-neutral-100'>
+              <div className='text-xs text-neutral-500'>{c.badge}</div>
+              <div className='mt-1 text-xl font-semibold text-neutral-900'>{c.name}</div>
+              <ul className='mt-4 space-y-2 text-sm text-neutral-700 list-disc pl-5'>
+                {c.points.map((p) => (<li key={p}>{p}</li>))}
+              </ul>
+              <div className='mt-6 pt-6 border-t border-neutral-200'>
+                <button onClick={onApply} className='w-full px-4 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800'>Apply</button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <p className='mt-6 text-xs text-neutral-500'>*Exact numbers set per project; see public Terms page for caps, vesting, and buy-back formula.*</p>
       </div>
-      <p className='mt-6 text-xs text-neutral-400'>*Exact numbers set per project; see public Terms page for caps, vesting, and buy-back formula.*</p>
     </section>
   )
 }
@@ -205,15 +211,17 @@ function FocusSectors() {
     { title: 'Fintech', desc: 'Invoicing, payments, collections, risk' },
   ]
   return (
-    <section id='sectors' className='mx-auto max-w-7xl px-4 py-16'>
-      <h2 className='text-2xl md:text-4xl font-bold tracking-tight'>Focus sectors</h2>
-      <div className='mt-8 grid md:grid-cols-3 gap-6'>
-        {sectors.map((s) => (
-          <div key={s.title} className='rounded-2xl border border-white/10 bg-white/5 p-6'>
-            <div className='font-semibold'>{s.title}</div>
-            <p className='mt-2 text-sm text-neutral-300'>{s.desc}</p>
-          </div>
-        ))}
+    <section id='sectors' className='bg-white text-neutral-900 py-16'>
+      <div className='mx-auto max-w-7xl px-4'>
+        <h2 className='text-2xl md:text-4xl font-bold tracking-tight'>Focus sectors</h2>
+        <div className='mt-8 grid md:grid-cols-3 gap-6'>
+          {sectors.map((s) => (
+            <div key={s.title} className='rounded-2xl border border-neutral-200 bg-neutral-50 p-6'>
+              <div className='font-semibold text-neutral-900'>{s.title}</div>
+              <p className='mt-2 text-sm text-neutral-600'>{s.desc}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -227,18 +235,20 @@ function FAQ() {
     { q: 'Can I buy back equity?', a: 'Yes — see buy-back formula on our Terms page once you hit scale.' },
   ]
   return (
-    <section id='faq' className='mx-auto max-w-5xl px-4 py-20'>
-      <h2 className='text-2xl md:text-4xl font-bold tracking-tight text-center'>FAQ</h2>
-      <div className='mt-10 divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/5 overflow-hidden'>
-        {items.map((it) => (
-          <details key={it.q} className='group open:bg-white/5'>
-            <summary className='cursor-pointer list-none px-6 py-4 flex items-center justify-between'>
-              <span className='font-medium'>{it.q}</span>
-              <span className='text-neutral-400 group-open:rotate-180 transition'>⌄</span>
-            </summary>
-            <div className='px-6 pb-5 text-sm text-neutral-300'>{it.a}</div>
-          </details>
-        ))}
+    <section id='faq' className='bg-white text-neutral-900 py-20'>
+      <div className='mx-auto max-w-5xl px-4'>
+        <h2 className='text-2xl md:text-4xl font-bold tracking-tight text-center'>FAQ</h2>
+        <div className='mt-10 divide-y divide-neutral-200 rounded-2xl border border-neutral-200 bg-neutral-50 overflow-hidden'>
+          {items.map((it) => (
+            <details key={it.q} className='group open:bg-neutral-100'>
+              <summary className='cursor-pointer list-none px-6 py-4 flex items-center justify-between'>
+                <span className='font-medium text-neutral-900'>{it.q}</span>
+                <span className='text-neutral-500 group-open:rotate-180 transition'>⌄</span>
+              </summary>
+              <div className='px-6 pb-5 text-sm text-neutral-700'>{it.a}</div>
+            </details>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -246,23 +256,25 @@ function FAQ() {
 
 function CTA({ onApply }: { onApply: () => void }) {
   return (
-    <section className='mx-auto max-w-7xl px-4 py-24'>
-      <div className='rounded-3xl border border-white/10 bg-gradient-to-r from-white/10 to-white/5 p-8 md:p-12 text-center'>
-        <h3 className='text-3xl md:text-4xl font-bold tracking-tight'>
-          Ready to build and sell — not just prototype?
-        </h3>
-        <p className='mt-3 text-neutral-300'>We take a handful of founders each quarter.</p>
-        <div className='mt-6 flex flex-wrap gap-3 justify-center'>
-          <button onClick={onApply} className='px-5 py-3 rounded-2xl bg-white text-neutral-900 font-medium'>Apply now</button>
-          <a
-            href={BOOK_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-5 py-3 rounded-2xl border border-white/15 hover:border-white/30"
-          >
-            Book 30-min
+    <section className='bg-neutral-950 text-white py-24'>
+      <div className='mx-auto max-w-7xl px-4'>
+        <div className='rounded-3xl border border-white/10 bg-gradient-to-r from-white/10 to-white/5 p-8 md:p-12 text-center'>
+          <h3 className='text-3xl md:text-4xl font-bold tracking-tight'>
+            Ready to build and sell — not just prototype?
+          </h3>
+          <p className='mt-3 text-neutral-300'>We take a handful of founders each quarter.</p>
+          <div className='mt-6 flex flex-wrap gap-3 justify-center'>
+            <button onClick={onApply} className='px-5 py-3 rounded-2xl bg-white text-neutral-900 font-medium'>Apply now</button>
+            <a
+              href={BOOK_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-3 rounded-2xl border border-white/15 hover:border-white/30 text-white"
+            >
+              Book 30-min
 
-          </a>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -271,8 +283,8 @@ function CTA({ onApply }: { onApply: () => void }) {
 
 function Footer() {
   return (
-    <footer className='border-t border-white/10'>
-      <div className='mx-auto max-w-7xl px-4 py-10 text-sm text-neutral-400 flex flex-col md:flex-row items-center justify-between gap-4'>
+    <footer className='bg-neutral-950 text-neutral-400 border-t border-white/10'>
+      <div className='mx-auto max-w-7xl px-4 py-10 text-sm flex flex-col md:flex-row items-center justify-between gap-4'>
         <div className='flex items-center gap-3'>
           <Logo small />
           <span>© {new Date().getFullYear()} PilotTen</span>
