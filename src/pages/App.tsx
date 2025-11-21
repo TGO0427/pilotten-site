@@ -295,14 +295,24 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
     setState('sending');
     const data = new FormData(e.currentTarget);
 
-    fetch('https://formspree.io/f/xwpygadw', { method: 'POST', body: data })
-      .then((r) => {
-        if (!r.ok) throw new Error('bad');
+    fetch('https://formspree.io/f/xwpygadw', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' },
+    })
+      .then(async (r) => {
+        if (!r.ok) {
+          const msg = await r.text().catch(() => '');
+          throw new Error(`Formspree: ${r.status} ${msg}`);
+        }
         (window as any)?.plausible?.('Application Submitted');
         e.currentTarget.reset();
         setState('success');
       })
-      .catch(() => setState('error'));
+      .catch((err) => {
+        console.error(err);
+        setState('error');
+      });
   }
 
   return (
