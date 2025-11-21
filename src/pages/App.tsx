@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 const STUDIO_NAME = 'PilotTen'
@@ -8,19 +8,50 @@ const APPLY_LINK = '#apply'
 
 export default function App() {
   const [openForm, setOpenForm] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const containerRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect()
+        setMousePosition({
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top
+        })
+      }
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
-      <Header onApply={() => setOpenForm(true)} />
-      <Hero onApply={() => setOpenForm(true)} />
-      <TrustBar />
-      <HowItWorks />
-      <WhyUs />
-      <Offers onApply={() => setOpenForm(true)} />
-      <FocusSectors />
-      <FAQ />
-      <CTA onApply={() => setOpenForm(true)} />
-      <Footer />
-      {openForm && <ApplyModal onClose={() => setOpenForm(false)} />}
+    <main ref={containerRef} className="min-h-screen bg-slate-950 text-white relative overflow-hidden">
+      {/* Animated gradient blob following cursor */}
+      <div
+        className="fixed pointer-events-none z-0 w-96 h-96 rounded-full blur-3xl opacity-20 bg-gradient-to-r from-lime-300 via-purple-500 to-orange-500"
+        style={{
+          left: mousePosition.x - 192,
+          top: mousePosition.y - 192,
+          transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10">
+        <Header onApply={() => setOpenForm(true)} />
+        <Hero onApply={() => setOpenForm(true)} />
+        <TrustBar />
+        <HowItWorks />
+        <WhyUs />
+        <Offers onApply={() => setOpenForm(true)} />
+        <FocusSectors />
+        <FAQ />
+        <CTA onApply={() => setOpenForm(true)} />
+        <Footer />
+        {openForm && <ApplyModal onClose={() => setOpenForm(false)} />}
+      </div>
     </main>
   )
 }
@@ -233,6 +264,8 @@ function WhyUs() {
 }
 
 function Offers({ onApply }: { onApply: () => void }) {
+  const [hoveredCard, setHoveredCard] = React.useState<number | null>(null)
+
   const cards = [
     { name: 'EQUITY', desc: '8–15% SAFE vesting\nKPI-gated', bg: 'bg-lime-300', text: 'text-black', accent: 'border-lime-300' },
     { name: 'REVENUE-SHARE', desc: '8–12% gross revenue\ncapped 2.5×', bg: 'bg-purple-500', text: 'text-white', accent: 'border-purple-500' },
@@ -249,21 +282,48 @@ function Offers({ onApply }: { onApply: () => void }) {
 
         <div className='grid md:grid-cols-3 gap-8'>
           {cards.map((c, i) => (
-            <div key={c.name} className={`${c.bg} ${c.text} p-12 rounded-none flex flex-col justify-between min-h-80 relative group`}>
-              {/* Digital corner accent */}
-              <div className='absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 opacity-40 group-hover:opacity-100 transition'></div>
-              <div className='absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 opacity-40 group-hover:opacity-100 transition'></div>
+            <div
+              key={c.name}
+              onMouseEnter={() => setHoveredCard(i)}
+              onMouseLeave={() => setHoveredCard(null)}
+              className='relative group'
+              style={{
+                transform: hoveredCard === i ? 'perspective(1000px) scale(1.05) rotateY(-5deg)' : 'perspective(1000px) scale(1) rotateY(0deg)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}
+            >
+              {/* Glow effect on hover */}
+              <div
+                className={`absolute inset-0 rounded-lg blur-2xl ${c.bg} opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10`}
+              />
 
-              {/* Index indicator */}
-              <div className='absolute top-4 left-4 text-xs font-black opacity-50'>/{String(i+1).padStart(2, '0')}</div>
+              <div className={`${c.bg} ${c.text} p-12 rounded-none flex flex-col justify-between min-h-80 relative overflow-hidden`}>
+                {/* Animated gradient overlay */}
+                <div
+                  className='absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300'
+                  style={{
+                    background: hoveredCard === i ? 'linear-gradient(135deg, rgba(255,255,255,0.2), rgba(0,0,0,0.1))' : 'none'
+                  }}
+                />
 
-              <div>
-                <h3 className='text-3xl font-black leading-tight'>{c.name}</h3>
-                <p className='mt-6 text-lg font-bold whitespace-pre-line'>{c.desc}</p>
+                {/* Digital corner accent */}
+                <div className='absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 opacity-40 group-hover:opacity-100 transition'></div>
+                <div className='absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 opacity-40 group-hover:opacity-100 transition'></div>
+
+                {/* Hover effect line */}
+                <div className='absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-40 transition-all duration-300' />
+
+                {/* Index indicator */}
+                <div className='absolute top-4 left-4 text-xs font-black opacity-50'>/{String(i+1).padStart(2, '0')}</div>
+
+                <div className='relative z-10'>
+                  <h3 className='text-3xl font-black leading-tight group-hover:translate-x-2 transition-transform duration-300'>{c.name}</h3>
+                  <p className='mt-6 text-lg font-bold whitespace-pre-line'>{c.desc}</p>
+                </div>
+                <button onClick={onApply} className='mt-8 py-3 px-6 bg-white text-black font-black uppercase hover:opacity-90 transform group-hover:translate-y-1 transition-all duration-300 relative z-10'>
+                  Learn More →
+                </button>
               </div>
-              <button onClick={onApply} className='mt-8 py-3 px-6 bg-white text-black font-black uppercase hover:opacity-90 transition'>
-                Learn More →
-              </button>
             </div>
           ))}
         </div>
@@ -273,6 +333,8 @@ function Offers({ onApply }: { onApply: () => void }) {
 }
 
 function FocusSectors() {
+  const [hoveredSector, setHoveredSector] = React.useState<number | null>(null)
+
   const sectors = [
     { title: 'LOGISTICS', desc: 'Dispatch, tracking, route optimization, inventory', bg: 'bg-lime-300', text: 'text-black' },
     { title: 'FMCG', desc: 'Batch management, traceability, merchandising', bg: 'bg-purple-500', text: 'text-white' },
@@ -284,13 +346,30 @@ function FocusSectors() {
         <h2 className='text-6xl md:text-7xl font-black mb-20'>WE OWN<br />THREE SECTORS.</h2>
 
         <div className='grid md:grid-cols-3 gap-8'>
-          {sectors.map((s) => (
-            <div key={s.title} className={`${s.bg} ${s.text} p-12 rounded-none min-h-64 flex flex-col justify-between`}>
-              <div>
-                <h3 className='text-3xl font-black uppercase mb-4'>{s.title}</h3>
-                <p className='text-base font-bold'>{s.desc}</p>
+          {sectors.map((s, i) => (
+            <div
+              key={s.title}
+              onMouseEnter={() => setHoveredSector(i)}
+              onMouseLeave={() => setHoveredSector(null)}
+              className={`${s.bg} ${s.text} p-12 rounded-none min-h-64 flex flex-col justify-between group relative overflow-hidden`}
+              style={{
+                transform: hoveredSector === i ? 'perspective(1000px) scale(1.03) rotateX(-3deg)' : 'perspective(1000px) scale(1)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}
+            >
+              {/* Animated overlay on hover */}
+              <div
+                className='absolute inset-0 opacity-0 group-hover:opacity-15 transition-opacity duration-300'
+                style={{
+                  background: 'radial-gradient(circle, rgba(255,255,255,0.3), transparent)'
+                }}
+              />
+
+              <div className='relative z-10'>
+                <h3 className='text-3xl font-black uppercase mb-4 group-hover:translate-x-3 transition-transform duration-300'>{s.title}</h3>
+                <p className='text-base font-bold group-hover:opacity-90 transition-opacity duration-300'>{s.desc}</p>
               </div>
-              <p className='text-sm font-black uppercase opacity-70'>Learn more →</p>
+              <p className='text-sm font-black uppercase opacity-70 group-hover:opacity-100 group-hover:translate-y-1 transition-all duration-300 relative z-10'>Learn more →</p>
             </div>
           ))}
         </div>
