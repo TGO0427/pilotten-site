@@ -306,8 +306,8 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4">
-      <div className="w-full max-w-2xl rounded-2xl border border-white/10 bg-neutral-950 overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+      <div className="w-full max-w-2xl h-auto max-h-[90vh] rounded-2xl border border-white/10 bg-neutral-950 overflow-hidden flex flex-col">
         {/* Header */}
         <div className="flex-shrink-0 flex items-center justify-between px-6 py-4 border-b border-white/10">
           <h3 className="font-semibold">Apply to PilotTen</h3>
@@ -315,7 +315,7 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
         </div>
 
         {state === 'success' ? (
-          <div className="flex-1 overflow-auto p-6 text-center">
+          <div className="flex-1 overflow-y-auto p-6 text-center">
             <div className="mx-auto mb-4 h-12 w-12 grid place-items-center rounded-full bg-white text-neutral-900">✓</div>
             <h4 className="text-lg font-semibold">Application received</h4>
             <p className="mt-2 text-sm text-neutral-300">
@@ -328,9 +328,9 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
           </div>
         ) : (
           <div className="flex flex-col flex-1 min-h-0">
-            <form id="apply-form" onSubmit={submit} className="flex-1 overflow-auto min-h-0">
+            <form id="apply-form" onSubmit={submit} className="flex-1 overflow-y-auto min-h-0">
               {/* Form body */}
-              <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4 h-fit">
+              <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Honeypot */}
                 <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
 
