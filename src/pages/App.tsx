@@ -293,7 +293,8 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setState('sending');
-    const data = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const data = new FormData(form);
 
     fetch('https://formspree.io/f/xwpygadw', {
       method: 'POST',
@@ -301,16 +302,14 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
       headers: { Accept: 'application/json' },
     })
       .then(async (r) => {
-        console.log('Formspree response:', r.status, r.statusText);
         if (!r.ok) {
           const msg = await r.text().catch(() => '');
-          console.error('Error body:', msg);
           throw new Error(`${r.status}: ${msg}`);
         }
         const json = await r.json();
         console.log('Success response:', json);
         (window as any)?.plausible?.('Application Submitted');
-        e.currentTarget.reset();
+        form.reset();
         setState('success');
       })
       .catch((err) => {
