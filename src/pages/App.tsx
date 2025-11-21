@@ -327,10 +327,10 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col flex-1">
-            <form id="apply-form" onSubmit={submit} className="flex-1 overflow-auto">
+          <div className="flex flex-col flex-1 min-h-0">
+            <form id="apply-form" onSubmit={submit} className="flex-1 overflow-auto min-h-0">
               {/* Form body */}
-              <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4 h-fit">
                 {/* Honeypot */}
                 <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
 
