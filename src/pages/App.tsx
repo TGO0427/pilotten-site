@@ -66,10 +66,27 @@ function Header({ onApply }: { onApply: () => void }) {
 function Hero({ onApply }: { onApply: () => void }) {
   return (
     <section className="relative overflow-hidden pt-32 pb-24 md:pb-40">
+      {/* Digital grid background */}
+      <div className="absolute inset-0 -z-10 opacity-10" aria-hidden>
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <defs>
+            <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+              <rect x="0" y="0" width="80" height="80" fill="none" stroke="#BFFF00" strokeWidth="1" opacity="0.3"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
+
       <div className="mx-auto max-w-7xl px-4">
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Left: BOLD headline with vibrant accent */}
           <div className="space-y-8">
+            <div className="inline-block mb-4">
+              <div className="border border-lime-300 px-4 py-2 text-xs font-black uppercase tracking-widest text-lime-300">
+                → Building MVPs & Traction
+              </div>
+            </div>
             <h1 className="text-6xl md:text-8xl font-black leading-[0.95] tracking-tighter">
               We build your
               <br />
@@ -91,17 +108,28 @@ function Hero({ onApply }: { onApply: () => void }) {
             </div>
           </div>
 
-          {/* Right: Bold visual block */}
-          <div className="hidden md:block">
-            <div className="bg-lime-300 text-black p-12 rounded-none space-y-6">
-              <p className="text-sm font-black uppercase tracking-widest">What we deliver</p>
-              <div className="space-y-4 text-lg font-bold">
-                <p>✓ 2-week validation sprint</p>
-                <p>✓ 8–12 week build phase</p>
-                <p>✓ Pilot support + customer launch</p>
-                <p>✓ KPI-gated equity vesting</p>
-                <p>✓ Fractional team or transition</p>
+          {/* Right: Tech-inspired visual with geometry */}
+          <div className="hidden md:flex items-center justify-center">
+            <div className="relative w-full h-full">
+              {/* Animated accent lines */}
+              <div className="absolute top-0 right-0 w-1 h-32 bg-gradient-to-b from-lime-300 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 w-32 h-1 bg-gradient-to-r from-lime-300 to-transparent"></div>
+
+              {/* Main content block */}
+              <div className="bg-lime-300 text-black p-12 rounded-none space-y-6 relative z-10">
+                <p className="text-sm font-black uppercase tracking-widest">What we deliver</p>
+                <div className="space-y-4 text-lg font-bold">
+                  <p>✓ 2-week validation sprint</p>
+                  <p>✓ 8–12 week build phase</p>
+                  <p>✓ Pilot support + customer launch</p>
+                  <p>✓ KPI-gated equity vesting</p>
+                  <p>✓ Fractional team or transition</p>
+                </div>
               </div>
+
+              {/* Corner accents */}
+              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-lime-300 opacity-50"></div>
+              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-lime-300 opacity-50"></div>
             </div>
           </div>
         </div>
@@ -127,14 +155,17 @@ function TrustBar() {
 
 function HowItWorks() {
   const steps = [
-    { num: '01', title: 'Apply', desc: 'Problem, customers, traction. We score for fit.' },
-    { num: '02', title: 'Validation', desc: 'Interviews, prototype, KPI sheet, pilot LOIs.' },
-    { num: '03', title: 'Build', desc: 'Core flows + QA, analytics, security.' },
-    { num: '04', title: 'Pilot', desc: 'Launch with customers. We help close deals.' },
-    { num: '05', title: 'Scale', desc: 'Fractional CTO/PM or transition to your team.' },
+    { num: '01', title: 'Apply', desc: 'Problem, customers, traction. We score for fit.', weeks: '1 week' },
+    { num: '02', title: 'Validation', desc: 'Interviews, prototype, KPI sheet, pilot LOIs.', weeks: '2 weeks' },
+    { num: '03', title: 'Build', desc: 'Core flows + QA, analytics, security.', weeks: '8-12 weeks' },
+    { num: '04', title: 'Pilot', desc: 'Launch with customers. We help close deals.', weeks: '4-8 weeks' },
+    { num: '05', title: 'Scale', desc: 'Fractional CTO/PM or transition to your team.', weeks: 'Ongoing' },
   ]
   return (
-    <section id="how" className="py-32">
+    <section id="how" className="py-32 relative">
+      {/* Subtle diagonal line accent */}
+      <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-lime-300 opacity-10"></div>
+
       <div className="mx-auto max-w-7xl px-4">
         <div className="mb-20">
           <h2 className="text-6xl md:text-7xl font-black">THE PROCESS</h2>
@@ -143,9 +174,13 @@ function HowItWorks() {
 
         <div className="space-y-12">
           {steps.map((s, i) => (
-            <div key={i} className="grid md:grid-cols-12 gap-8 items-start pb-12 border-b border-neutral-800">
+            <div key={i} className="grid md:grid-cols-12 gap-8 items-start pb-12 border-b border-neutral-800 relative">
+              {/* Visual timeline dot */}
+              <div className="absolute -left-6 top-0 w-4 h-4 bg-lime-300 rounded-full border-4 border-slate-950"></div>
+
               <div className="md:col-span-2">
                 <div className="text-8xl font-black text-lime-300">{s.num}</div>
+                <div className="text-xs font-black uppercase text-neutral-500 mt-4">{s.weeks}</div>
               </div>
               <div className="md:col-span-10">
                 <h3 className="text-3xl font-black mb-3 uppercase">{s.title}</h3>
@@ -199,18 +234,29 @@ function WhyUs() {
 
 function Offers({ onApply }: { onApply: () => void }) {
   const cards = [
-    { name: 'EQUITY', desc: '8–15% SAFE vesting\nKPI-gated', bg: 'bg-lime-300', text: 'text-black' },
-    { name: 'REVENUE-SHARE', desc: '8–12% gross revenue\ncapped 2.5×', bg: 'bg-purple-500', text: 'text-white' },
-    { name: 'HYBRID', desc: 'Equity + revenue blend\n1.5× cap', bg: 'bg-orange-500', text: 'text-white' },
+    { name: 'EQUITY', desc: '8–15% SAFE vesting\nKPI-gated', bg: 'bg-lime-300', text: 'text-black', accent: 'border-lime-300' },
+    { name: 'REVENUE-SHARE', desc: '8–12% gross revenue\ncapped 2.5×', bg: 'bg-purple-500', text: 'text-white', accent: 'border-purple-500' },
+    { name: 'HYBRID', desc: 'Equity + revenue blend\n1.5× cap', bg: 'bg-orange-500', text: 'text-white', accent: 'border-orange-500' },
   ]
   return (
-    <section id='offers' className='py-32'>
+    <section id='offers' className='py-32 relative'>
+      {/* Geometric accent */}
+      <div className="absolute top-0 left-0 w-32 h-32 border-t-2 border-l-2 border-lime-300 opacity-20"></div>
+      <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-lime-300 opacity-20"></div>
+
       <div className='mx-auto max-w-7xl px-4'>
         <h2 className='text-6xl md:text-7xl font-black mb-24'>PICK YOUR TERMS.</h2>
 
         <div className='grid md:grid-cols-3 gap-8'>
-          {cards.map((c) => (
-            <div key={c.name} className={`${c.bg} ${c.text} p-12 rounded-none flex flex-col justify-between min-h-80`}>
+          {cards.map((c, i) => (
+            <div key={c.name} className={`${c.bg} ${c.text} p-12 rounded-none flex flex-col justify-between min-h-80 relative group`}>
+              {/* Digital corner accent */}
+              <div className='absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 opacity-40 group-hover:opacity-100 transition'></div>
+              <div className='absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 opacity-40 group-hover:opacity-100 transition'></div>
+
+              {/* Index indicator */}
+              <div className='absolute top-4 left-4 text-xs font-black opacity-50'>/{String(i+1).padStart(2, '0')}</div>
+
               <div>
                 <h3 className='text-3xl font-black leading-tight'>{c.name}</h3>
                 <p className='mt-6 text-lg font-bold whitespace-pre-line'>{c.desc}</p>
