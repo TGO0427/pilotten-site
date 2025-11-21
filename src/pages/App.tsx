@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const STUDIO_NAME = 'PilotTen'
 const CONTACT_EMAIL = 'hello@pilotten.africa'
-const BOOK_LINK = 'https://calendly.com/your-handle/20min' // ← replace with your real Calendly link
+const BOOK_LINK = 'https://calendly.com/tinogrdn/30min' // live Calendly link
 const APPLY_LINK = '#apply'
 
 export default function App() {
@@ -41,14 +41,13 @@ function Header({ onApply }: { onApply: () => void }) {
         </nav>
         <div className="flex items-center gap-3">
           <a
-  href={BOOK_LINK}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="inline-block text-sm px-3 py-2 rounded-xl border border-white/15 hover:border-white/30"
->
-  Book 20-min
-</a>
-
+            href={BOOK_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block text-sm px-3 py-2 rounded-xl border border-white/15 hover:border-white/30"
+          >
+            Book 20-min
+          </a>
           <button onClick={onApply} className="text-sm px-3 py-2 rounded-xl bg-white text-neutral-900 font-medium hover:opacity-90">Apply</button>
         </div>
       </div>
@@ -248,14 +247,13 @@ function CTA({ onApply }: { onApply: () => void }) {
         <div className='mt-6 flex flex-wrap gap-3 justify-center'>
           <button onClick={onApply} className='px-5 py-3 rounded-2xl bg-white text-neutral-900 font-medium'>Apply now</button>
           <a
-  href={BOOK_LINK}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="px-5 py-3 rounded-2xl border border-white/15 hover:border-white/30"
->
-  Book 20-min
-</a>
-
+            href={BOOK_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-3 rounded-2xl border border-white/15 hover:border-white/30"
+          >
+            Book 20-min
+          </a>
         </div>
       </div>
     </section>
