@@ -288,82 +288,104 @@ function Footer() {
 }
 
 function ApplyModal({ onClose }: { onClose: () => void }) {
+  const [state, setState] = React.useState<'idle'|'sending'|'success'|'error'>('idle');
+
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const form = e.currentTarget;
+    setState('sending');
+    const data = new FormData(e.currentTarget);
 
-    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
-    if (submitBtn) submitBtn.disabled = true;
-
-    const data = new FormData(form);
-
-    fetch('https://formspree.io/f/xwpygadw', {   // ← your live Formspree endpoint
-      method: 'POST',
-      body: data,
-    })
+    fetch('https://formspree.io/f/xwpygadw', { method: 'POST', body: data })
       .then((r) => {
-        if (!r.ok) throw new Error('Bad response');
-        // Optional: Plausible event if you added tracking
+        if (!r.ok) throw new Error('bad');
         (window as any)?.plausible?.('Application Submitted');
-        alert("Thanks! We'll reply within 48 hours.");
-        form.reset();
+        e.currentTarget.reset();
+        setState('success');
       })
-      .catch(() => {
-        alert("Submission failed. Please email hello@pilotten.africa");
-      })
-      .finally(() => {
-        if (submitBtn) submitBtn.disabled = false;
-        onClose();
-      });
+      .catch(() => setState('error'));
   }
 
   return (
-    <div className='fixed inset-0 z-50 grid place-items-center bg-black/60 p-4'>
-      <div className='w-full max-w-2xl rounded-2xl border border-white/10 bg-neutral-950'>
-        <div className='flex items-center justify-between px-6 py-4 border-b border-white/10'>
-          <h3 className='font-semibold'>Apply to PilotTen</h3>
-          <button onClick={onClose} className='text-neutral-400 hover:text-white'>✕</button>
+    <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4">
+      <div className="w-full max-w-2xl rounded-2xl border border-white/10 bg-neutral-950 overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+          <h3 className="font-semibold">Apply to PilotTen</h3>
+          <button onClick={onClose} className="text-neutral-400 hover:text-white">✕</button>
         </div>
-        <form onSubmit={submit} className='p-6 grid grid-cols-1 md:grid-cols-2 gap-4'>
-          {/* Honeypot to reduce spam (optional) */}
-          <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
 
-          <Input label='Full name' name='name' required />
-          <Input label='Email' name='email' type='email' required />
-          <Input label='Company' name='company' />
-          <Input label='Location' name='location' />
-          <div className='md:col-span-2'>
-            <Label>Problem you solve</Label>
-            <textarea name='problem' required className='mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2' rows={3} />
+        {state === 'success' ? (
+          <div className="p-6 text-center">
+            <div className="mx-auto mb-4 h-12 w-12 grid place-items-center rounded-full bg-white text-neutral-900">✓</div>
+            <h4 className="text-lg font-semibold">Application received</h4>
+            <p className="mt-2 text-sm text-neutral-300">
+              We'll email you within 48 hours. You can also book now:&nbsp;
+              <a className="underline" href="https://calendly.com/tinogrdn/30min" target="_blank" rel="noopener noreferrer">Calendly</a>.
+            </p>
+            <div className="mt-6">
+              <button onClick={onClose} className="px-4 py-2 rounded-xl bg-white text-neutral-900 font-medium">Close</button>
+            </div>
           </div>
-          <div className='md:col-span-2'>
-            <Label>Evidence of demand (LOIs, pilots, waitlist, paying users)</Label>
-            <textarea name='evidence' className='mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2' rows={3} />
-          </div>
-          <div>
-            <Label>Preferred model</Label>
-            <select name='model' className='mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2'>
-              <option>Equity</option>
-              <option>Revenue-Share (Capped)</option>
-              <option>Hybrid</option>
-            </select>
-          </div>
-          <div>
-            <Label>Time commitment (hrs/week)</Label>
-            <input type='number' name='time' min={0} className='mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2' />
-          </div>
-          <div className='md:col-span-2'>
-            <Label>Anything else we should know?</Label>
-            <textarea name='notes' className='mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2' rows={3} />
-          </div>
-          <div className='md:col-span-2 flex items-center justify-end gap-3 pt-2'>
-            <button type='button' onClick={onClose} className='px-4 py-2 rounded-xl border border-white/15 hover:border-white/30'>Cancel</button>
-            <button type='submit' className='px-4 py-2 rounded-xl bg-white text-neutral-900 font-medium'>Submit</button>
-          </div>
-        </form>
+        ) : (
+          <form onSubmit={submit} className="max-h-[75vh] overflow-auto">
+            {/* Form body */}
+            <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Honeypot */}
+              <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
+
+              <Input label="Full name" name="name" required />
+              <Input label="Email" name="email" type="email" required />
+              <Input label="Company" name="company" />
+              <Input label="Location" name="location" />
+              <div className="md:col-span-2">
+                <Label>Problem you solve</Label>
+                <textarea name="problem" required className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2" rows={3} />
+              </div>
+              <div className="md:col-span-2">
+                <Label>Evidence of demand (LOIs, pilots, waitlist, paying users)</Label>
+                <textarea name="evidence" className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2" rows={3} />
+              </div>
+              <div>
+                <Label>Preferred model</Label>
+                <select name="model" className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2">
+                  <option>Equity</option>
+                  <option>Revenue-Share (Capped)</option>
+                  <option>Hybrid</option>
+                </select>
+              </div>
+              <div>
+                <Label>Time commitment (hrs/week)</Label>
+                <input type="number" name="time" min={0} className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2" />
+              </div>
+              <div className="md:col-span-2">
+                <Label>Anything else we should know?</Label>
+                <textarea name="notes" className="mt-1 w-full rounded-xl bg-neutral-900 border border-white/10 px-3 py-2" rows={3} />
+              </div>
+              {state === 'error' && (
+                <div className="md:col-span-2 text-sm text-red-300">
+                  Submission failed. Please email hello@pilotten.africa
+                </div>
+              )}
+            </div>
+
+            {/* Sticky action bar */}
+            <div className="sticky bottom-0 bg-neutral-950/95 backdrop-blur border-t border-white/10 px-6 py-4 flex items-center justify-end gap-3">
+              <button type="button" onClick={onClose} className="px-4 py-2 rounded-xl border border-white/15 hover:border-white/30">
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={state === 'sending'}
+                className="px-4 py-2 rounded-xl bg-white text-neutral-900 font-medium disabled:opacity-60"
+              >
+                {state === 'sending' ? 'Sending…' : 'Submit'}
+              </button>
+            </div>
+          </form>
+        )}
       </div>
     </div>
-  )
+  );
 }
 
 function Input({ label, name, type = 'text', required = false }: { label: string; name: string; type?: string; required?: boolean }) {
