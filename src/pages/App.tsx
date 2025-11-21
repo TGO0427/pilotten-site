@@ -307,15 +307,15 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4">
-      <div className="w-full max-w-2xl rounded-2xl border border-white/10 bg-neutral-950 overflow-hidden">
+      <div className="w-full max-w-2xl rounded-2xl border border-white/10 bg-neutral-950 overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+        <div className="flex-shrink-0 flex items-center justify-between px-6 py-4 border-b border-white/10">
           <h3 className="font-semibold">Apply to PilotTen</h3>
           <button onClick={onClose} className="text-neutral-400 hover:text-white">✕</button>
         </div>
 
         {state === 'success' ? (
-          <div className="p-6 text-center">
+          <div className="flex-1 overflow-auto p-6 text-center">
             <div className="mx-auto mb-4 h-12 w-12 grid place-items-center rounded-full bg-white text-neutral-900">✓</div>
             <h4 className="text-lg font-semibold">Application received</h4>
             <p className="mt-2 text-sm text-neutral-300">
@@ -327,7 +327,7 @@ function ApplyModal({ onClose }: { onClose: () => void }) {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col max-h-[75vh]">
+          <div className="flex flex-col flex-1">
             <form id="apply-form" onSubmit={submit} className="flex-1 overflow-auto">
               {/* Form body */}
               <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
