@@ -26,8 +26,15 @@ export default function App() {
 }
 
 function Header({ onApply }: { onApply: () => void }) {
+  const [scrolled, setScrolled] = React.useState(false)
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
   return (
-    <header className="sticky top-0 z-40 backdrop-blur bg-neutral-950/70 border-b border-white/10">
+    <header className={`sticky top-0 z-40 backdrop-blur bg-neutral-950/70 border-b border-white/10 transition-shadow ${scrolled ? 'shadow-[0_2px_12px_rgba(0,0,0,0.4)]' : ''}`}>
       <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Logo />
@@ -46,7 +53,8 @@ function Header({ onApply }: { onApply: () => void }) {
             rel="noopener noreferrer"
             className="inline-block text-sm px-3 py-2 rounded-xl border border-white/15 hover:border-white/30"
           >
-            Book 20-min
+            Book 30-min
+
           </a>
           <button onClick={onApply} className="text-sm px-3 py-2 rounded-xl bg-white text-neutral-900 font-medium hover:opacity-90">Apply</button>
         </div>
@@ -173,7 +181,7 @@ function Offers({ onApply }: { onApply: () => void }) {
       <p className='mt-3 text-neutral-300'>Transparent, POPIA-compliant, KPI-gated.</p>
       <div className='mt-10 grid md:grid-cols-3 gap-6'>
         {cards.map((c) => (
-          <div key={c.name} className='rounded-2xl border border-white/10 bg-white/5 p-6 flex flex-col'>
+          <div key={c.name} className='rounded-2xl border border-white/10 bg-white/5 p-6 flex flex-col transition hover:border-white/20 hover:bg-white/[0.07]'>
             <div className='text-xs text-neutral-400'>{c.badge}</div>
             <div className='mt-1 text-xl font-semibold'>{c.name}</div>
             <ul className='mt-4 space-y-2 text-sm text-neutral-300 list-disc pl-5'>
@@ -252,7 +260,8 @@ function CTA({ onApply }: { onApply: () => void }) {
             rel="noopener noreferrer"
             className="px-5 py-3 rounded-2xl border border-white/15 hover:border-white/30"
           >
-            Book 20-min
+            Book 30-min
+
           </a>
         </div>
       </div>
