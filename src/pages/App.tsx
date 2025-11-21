@@ -42,7 +42,7 @@ function Header({ onApply }: { onApply: () => void }) {
         </div>
         <nav className="hidden md:flex items-center gap-8 text-sm text-neutral-300">
           <a href="#how" className="hover:text-white">How it works</a>
-          <a href="#offers" className="hover:text-white">Terms</a>
+          <a href="#offers" className="hover:text-white">Terms & Offers</a>
           <a href="#sectors" className="hover:text-white">Sectors</a>
           <Link to="/faq" className="hidden">FAQ</Link>
         </nav>
@@ -89,7 +89,7 @@ function Hero({ onApply }: { onApply: () => void }) {
 }
 
 function TrustBar() {
-  const items = ['POPIA', 'Security baseline', 'Analytics built-in', 'Weekly demos']
+  const items = ['POPIA', 'SA legal templates (SAFE/SSA)', 'Analytics built-in', 'Weekly demos']
   return (
     <div className="border-y border-white/10 bg-black/20">
       <div className="mx-auto max-w-7xl px-4 py-4 flex flex-wrap items-center justify-center gap-6 text-xs text-neutral-300">
@@ -386,10 +386,10 @@ function Logo({ small = false }: { small?: boolean }) {
   )
 }
 
-function Check() { return (<svg className='mt-1 shrink-0' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'><path d='M20 6L9 17l-5-5' /></svg>) }
-function Dot() { return (<svg width='12' height='12' viewBox='0 0 24 24' fill='currentColor' className='text-neutral-400'><circle cx='12' cy='12' r='4' /></svg>) }
+function Check() { return (<svg className='mt-1 shrink-0' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' aria-hidden='true'><path d='M20 6L9 17l-5-5' /></svg>) }
+function Dot() { return (<svg width='12' height='12' viewBox='0 0 24 24' fill='currentColor' className='text-neutral-400' aria-hidden='true'><circle cx='12' cy='12' r='4' /></svg>) }
 function GridBG() { return (
-  <svg className='w-full h-full' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'>
+  <svg className='w-full h-full' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' aria-hidden='true'>
     <defs>
       <pattern id='grid' width='40' height='40' patternUnits='userSpaceOnUse'>
         <path d='M40 0H0V40' fill='none' stroke='white' strokeOpacity='0.05' />
