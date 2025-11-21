@@ -9,7 +9,7 @@ const APPLY_LINK = '#apply'
 export default function App() {
   const [openForm, setOpenForm] = useState(false)
   return (
-    <main className="min-h-screen bg-white text-neutral-900">
+    <main className="min-h-screen bg-slate-950 text-white">
       <Header onApply={() => setOpenForm(true)} />
       <Hero onApply={() => setOpenForm(true)} />
       <TrustBar />
@@ -65,23 +65,44 @@ function Header({ onApply }: { onApply: () => void }) {
 
 function Hero({ onApply }: { onApply: () => void }) {
   return (
-    <section className="relative overflow-hidden bg-neutral-950 text-white">
-      <div className="absolute inset-0 -z-10 opacity-30" aria-hidden>
-        <GridBG />
-      </div>
-      <div className="mx-auto max-w-7xl px-4 py-24 md:py-32">
-        <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
-            We build your MVP & your first 10 customers.
-          </h1>
-          <p className="mt-5 text-neutral-300 text-lg md:text-xl">
-            Pay from success via equity or a capped revenue share. For selected African B2B founders.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <button onClick={onApply} className="px-5 py-3 rounded-2xl bg-white text-neutral-900 font-medium">Apply now</button>
-            <a href="#how" className="px-5 py-3 rounded-2xl border border-white/15 hover:border-white/30 text-white">How it works</a>
+    <section className="relative overflow-hidden pt-32 pb-24 md:pb-40">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="grid md:grid-cols-2 gap-12 items-start">
+          {/* Left: Bold headline with cyan accent */}
+          <div className="space-y-8">
+            <h1 className="text-5xl md:text-7xl font-black leading-[1.1] tracking-tight">
+              We build your
+              <br />
+              <span className="text-cyan-400">MVP</span>
+              <br />
+              & first customers.
+            </h1>
+            <p className="text-lg text-neutral-400 max-w-md leading-relaxed">
+              Pay from success. Equity or revenue-share. For selected African B2B founders who want to build and sell, not just prototype.
+            </p>
+            <div className="flex flex-wrap gap-3 pt-4">
+              <button onClick={onApply} className="px-6 py-3 rounded-lg bg-cyan-400 text-slate-950 font-semibold hover:bg-cyan-300 transition">
+                Apply now
+              </button>
+              <a href="#how" className="px-6 py-3 rounded-lg border border-neutral-600 hover:border-neutral-400 transition">
+                How it works
+              </a>
+            </div>
           </div>
-          <p className="mt-6 text-sm text-neutral-400">POPIA-first • KPI-gated terms • Operator mindset</p>
+
+          {/* Right: Premium visual (can be illustration or stats later) */}
+          <div className="hidden md:flex items-center justify-center">
+            <div className="text-center space-y-6">
+              <div className="inline-block px-6 py-3 rounded-lg border border-cyan-400/30 bg-cyan-400/5">
+                <p className="text-cyan-400 font-semibold">POPIA • KPI-gated • Operator mindset</p>
+              </div>
+              <div className="text-neutral-500 text-sm space-y-2">
+                <p>• Validation sprint: 2 weeks</p>
+                <p>• Build phase: 8–12 weeks</p>
+                <p>• Pilot & scale: ongoing support</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -89,14 +110,14 @@ function Hero({ onApply }: { onApply: () => void }) {
 }
 
 function TrustBar() {
-  const items = ['POPIA', 'SA legal templates (SAFE/SSA)', 'Analytics built-in', 'Weekly demos']
+  const items = ['POPIA-first', 'KPI-gated vesting', 'IP escrow', 'Weekly check-ins']
   return (
-    <div className="border-y border-white/10 bg-neutral-950 text-white">
-      <div className="mx-auto max-w-7xl px-4 py-4 flex flex-wrap items-center justify-center gap-6 text-xs text-neutral-300">
+    <div className="border-y border-neutral-800 py-8">
+      <div className="mx-auto max-w-7xl px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
         {items.map((t) => (
-          <span key={t} className="flex items-center gap-2">
-            <Dot /> {t}
-          </span>
+          <div key={t} className="text-center md:text-left">
+            <p className="text-sm text-neutral-500 uppercase tracking-wide">✓ {t}</p>
+          </div>
         ))}
       </div>
     </div>
@@ -105,22 +126,30 @@ function TrustBar() {
 
 function HowItWorks() {
   const steps = [
-    { title: 'Apply', desc: 'Tell us the problem, customers, and traction. We score for fit.' },
-    { title: 'Validation sprint (2 weeks)', desc: 'Customer interviews, clickable prototype, KPI sheet, pilot LOIs.' },
-    { title: 'Build (8–12 weeks)', desc: 'Ship core flows with QA, analytics, and security baked in.' },
-    { title: 'Pilot (4–8 weeks)', desc: 'Launch with real customers; we help close the first deals.' },
-    { title: 'Scale', desc: 'Stay with us as fractional CTO/PM/RevOps or transition to your team.' },
+    { num: '01', title: 'Apply', desc: 'Problem, customers, traction. We score for fit.' },
+    { num: '02', title: 'Validation', desc: 'Interviews, prototype, KPI sheet, pilot LOIs.' },
+    { num: '03', title: 'Build', desc: 'Core flows + QA, analytics, security.' },
+    { num: '04', title: 'Pilot', desc: 'Launch with customers. We help close deals.' },
+    { num: '05', title: 'Scale', desc: 'Fractional CTO/PM or transition to your team.' },
   ]
   return (
-    <section id="how" className="bg-white text-neutral-900 py-20">
+    <section id="how" className="py-32">
       <div className="mx-auto max-w-7xl px-4">
-        <h2 className="text-2xl md:text-4xl font-bold tracking-tight">How it works</h2>
-        <div className="mt-10 grid md:grid-cols-5 gap-6">
+        <div className="mb-20">
+          <h2 className="text-4xl md:text-5xl font-black">How we work</h2>
+          <div className="w-12 h-1 bg-cyan-400 mt-4"></div>
+        </div>
+
+        <div className="space-y-16">
           {steps.map((s, i) => (
-            <div key={i} className="rounded-2xl p-5 border border-neutral-200 bg-neutral-50">
-              <div className="text-xs text-neutral-500">Step {i + 1}</div>
-              <div className="mt-2 font-semibold text-neutral-900">{s.title}</div>
-              <p className="mt-2 text-sm text-neutral-600">{s.desc}</p>
+            <div key={i} className="grid md:grid-cols-12 gap-8 items-start">
+              <div className="md:col-span-2">
+                <div className="text-6xl font-black text-neutral-700">{s.num}</div>
+              </div>
+              <div className="md:col-span-10">
+                <h3 className="text-2xl font-bold mb-2">{s.title}</h3>
+                <p className="text-neutral-400 text-lg max-w-2xl">{s.desc}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -131,41 +160,31 @@ function HowItWorks() {
 
 function WhyUs() {
   const bullets = [
-    { title: 'Performance-triggered terms', desc: 'Equity or royalty vests only when KPIs are hit.' },
-    { title: 'Vertical modules', desc: 'Logistics, FMCG, Fintech building blocks speed up delivery.' },
-    { title: 'GTM included', desc: 'We help secure pilot customers and build the sales motion.' },
-    { title: 'Transparent legal', desc: 'SA-ready SAFE/SSA, IP escrow, POPIA DPA.' },
+    { title: 'Performance-triggered', desc: 'Equity vests only when KPIs hit.' },
+    { title: 'Vertical modules', desc: 'Logistics, FMCG, Fintech building blocks.' },
+    { title: 'GTM included', desc: 'We help close pilot customers.' },
+    { title: 'Transparent legal', desc: 'SA-ready SAFE/SSA, IP escrow, POPIA.' },
   ]
   return (
-    <section className="bg-white text-neutral-900 py-12">
+    <section className="py-32">
       <div className="mx-auto max-w-7xl px-4">
-        <div className="grid md:grid-cols-2 gap-10 items-start">
+        <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-2xl md:text-4xl font-bold tracking-tight">Why founders choose PilotTen</h2>
-            <p className="mt-4 text-neutral-600">
-              We're operators, not just devs. We validate, build, and help sell your MVP.
+            <h2 className="text-4xl md:text-5xl font-black leading-tight">
+              Built for <span className="text-cyan-400">operators</span>, not just devs.
+            </h2>
+            <p className="mt-6 text-neutral-400 text-lg">
+              We validate, build, and help you sell. Not a code shop—a growth partnership.
             </p>
-            <ul className="mt-6 space-y-3">
-              {bullets.map((b) => (
-                <li key={b.title} className="flex items-start gap-3">
-                  <Check />
-                  <div>
-                    <div className="font-medium text-neutral-900">{b.title}</div>
-                    <p className="text-sm text-neutral-600">{b.desc}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
           </div>
-          <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
-            <h3 className="font-semibold text-neutral-900">Validation Sprint (2 weeks) – what you get</h3>
-            <ul className="mt-4 space-y-2 text-sm text-neutral-700 list-disc pl-5">
-              <li>Customer Problem Brief & Demand Signals report (LOIs/pilots)</li>
-              <li>Clickable prototype of top 3 journeys (Figma)</li>
-              <li>MVP PRD + KPI sheet + 12-week delivery plan</li>
-              <li>Term sheet options (Equity / Rev-Share / Hybrid)</li>
-            </ul>
-            <p className="mt-4 text-sm text-neutral-600">Fixed price, credited to build if we proceed.</p>
+
+          <div className="grid grid-cols-2 gap-6">
+            {bullets.map((b) => (
+              <div key={b.title} className="space-y-2">
+                <h4 className="font-semibold text-white">{b.title}</h4>
+                <p className="text-sm text-neutral-500">{b.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -175,30 +194,29 @@ function WhyUs() {
 
 function Offers({ onApply }: { onApply: () => void }) {
   const cards = [
-    { name: 'Equity', badge: 'Venture-scale', points: ['0–40% cash','8–15% equity via SAFE','KPI-gated vesting + buy-back'] },
-    { name: 'Revenue-Share (Capped)', badge: 'Bootstrapped', points: ['20–30% cash','8–12% of gross until 2.5×','2% tail for 18 months'] },
-    { name: 'Hybrid', badge: 'Blend', points: ['Small retainer','4–8% equity + 4–6% gross','Cap 1.5×, no tail'] },
+    { name: 'Equity', desc: '8–15% via SAFE, KPI-gated vesting + buyback' },
+    { name: 'Revenue-Share', desc: '8–12% of gross revenue, capped at 2.5×' },
+    { name: 'Hybrid', desc: 'Blend of equity + revenue, 1.5× cap' },
   ]
   return (
-    <section id='offers' className='bg-white text-neutral-900 py-20'>
+    <section id='offers' className='py-32'>
       <div className='mx-auto max-w-7xl px-4'>
-        <h2 className='text-2xl md:text-4xl font-bold tracking-tight'>Founder-friendly terms</h2>
-        <p className='mt-3 text-neutral-600'>Transparent, POPIA-compliant, KPI-gated.</p>
-        <div className='mt-10 grid md:grid-cols-3 gap-6'>
+        <div className='mb-16'>
+          <h2 className='text-4xl md:text-5xl font-black'>Flexible terms.</h2>
+          <p className='mt-4 text-neutral-400 text-lg max-w-2xl'>Choose what works for your stage. All POPIA-compliant, transparent, KPI-gated.</p>
+        </div>
+
+        <div className='grid md:grid-cols-3 gap-8'>
           {cards.map((c) => (
-            <div key={c.name} className='rounded-2xl border border-neutral-200 bg-neutral-50 p-6 flex flex-col transition hover:border-neutral-300 hover:bg-neutral-100'>
-              <div className='text-xs text-neutral-500'>{c.badge}</div>
-              <div className='mt-1 text-xl font-semibold text-neutral-900'>{c.name}</div>
-              <ul className='mt-4 space-y-2 text-sm text-neutral-700 list-disc pl-5'>
-                {c.points.map((p) => (<li key={p}>{p}</li>))}
-              </ul>
-              <div className='mt-6 pt-6 border-t border-neutral-200'>
-                <button onClick={onApply} className='w-full px-4 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800'>Apply</button>
-              </div>
+            <div key={c.name} className='group border border-neutral-800 rounded-lg p-8 flex flex-col transition hover:border-cyan-400/50 hover:bg-slate-900/50'>
+              <h3 className='text-2xl font-bold text-white group-hover:text-cyan-400 transition'>{c.name}</h3>
+              <p className='mt-4 text-neutral-400'>{c.desc}</p>
+              <button onClick={onApply} className='mt-8 py-2 px-4 border border-cyan-400 text-cyan-400 rounded hover:bg-cyan-400 hover:text-slate-950 transition font-semibold'>
+                Learn more
+              </button>
             </div>
           ))}
         </div>
-        <p className='mt-6 text-xs text-neutral-500'>*Exact numbers set per project; see public Terms page for caps, vesting, and buy-back formula.*</p>
       </div>
     </section>
   )
@@ -206,19 +224,21 @@ function Offers({ onApply }: { onApply: () => void }) {
 
 function FocusSectors() {
   const sectors = [
-    { title: 'Logistics', desc: 'Dispatch, tracking, FEFO/expiry, route ops' },
-    { title: 'FMCG', desc: 'Batch/expiry, traceability, merchandising' },
+    { title: 'Logistics', desc: 'Dispatch, tracking, route optimization, inventory' },
+    { title: 'FMCG', desc: 'Batch management, traceability, merchandising' },
     { title: 'Fintech', desc: 'Invoicing, payments, collections, risk' },
   ]
   return (
-    <section id='sectors' className='bg-white text-neutral-900 py-16'>
+    <section id='sectors' className='py-32'>
       <div className='mx-auto max-w-7xl px-4'>
-        <h2 className='text-2xl md:text-4xl font-bold tracking-tight'>Focus sectors</h2>
-        <div className='mt-8 grid md:grid-cols-3 gap-6'>
+        <h2 className='text-4xl md:text-5xl font-black mb-16'>We focus on three sectors.</h2>
+
+        <div className='grid md:grid-cols-3 gap-12'>
           {sectors.map((s) => (
-            <div key={s.title} className='rounded-2xl border border-neutral-200 bg-neutral-50 p-6'>
-              <div className='font-semibold text-neutral-900'>{s.title}</div>
-              <p className='mt-2 text-sm text-neutral-600'>{s.desc}</p>
+            <div key={s.title} className='space-y-4'>
+              <div className='w-16 h-1 bg-cyan-400'></div>
+              <h3 className='text-xl font-bold'>{s.title}</h3>
+              <p className='text-neutral-400'>{s.desc}</p>
             </div>
           ))}
         </div>
@@ -229,23 +249,24 @@ function FocusSectors() {
 
 function FAQ() {
   const items = [
-    { q: 'Do you take control?', a: 'No. We take a minority stake and operate alongside you for 6–9 months.' },
-    { q: 'Who owns the IP?', a: 'Assigned to your company on milestone acceptance; held in escrow until then.' },
-    { q: 'How do you collect revenue-share?', a: 'Payment-processor split (PayFast/Peach/Yoco/Stripe) or monthly attestation with audit rights.' },
-    { q: 'Can I buy back equity?', a: 'Yes — see buy-back formula on our Terms page once you hit scale.' },
+    { q: 'Do you take control?', a: 'No. We operate alongside you as a minority stakeholder.' },
+    { q: 'Who owns the IP?', a: 'Your company. Held in escrow until milestone acceptance.' },
+    { q: 'How do you collect revenue-share?', a: 'Payment processor splits (PayFast, Stripe, etc) or monthly attestation.' },
+    { q: 'Can I buy back your stake?', a: 'Yes. See buyback formula on Terms once you hit scale.' },
   ]
   return (
-    <section id='faq' className='bg-white text-neutral-900 py-20'>
-      <div className='mx-auto max-w-5xl px-4'>
-        <h2 className='text-2xl md:text-4xl font-bold tracking-tight text-center'>FAQ</h2>
-        <div className='mt-10 divide-y divide-neutral-200 rounded-2xl border border-neutral-200 bg-neutral-50 overflow-hidden'>
-          {items.map((it) => (
-            <details key={it.q} className='group open:bg-neutral-100'>
-              <summary className='cursor-pointer list-none px-6 py-4 flex items-center justify-between'>
-                <span className='font-medium text-neutral-900'>{it.q}</span>
-                <span className='text-neutral-500 group-open:rotate-180 transition'>⌄</span>
+    <section id='faq' className='py-32'>
+      <div className='mx-auto max-w-4xl px-4'>
+        <h2 className='text-4xl md:text-5xl font-black mb-20'>FAQ</h2>
+
+        <div className='space-y-6'>
+          {items.map((it, i) => (
+            <details key={i} className='group border-b border-neutral-800 pb-6'>
+              <summary className='cursor-pointer flex items-start justify-between gap-6 hover:text-cyan-400 transition'>
+                <span className='font-semibold text-lg text-white'>{it.q}</span>
+                <span className='text-cyan-400 group-open:rotate-180 transition flex-shrink-0 mt-1'>⌄</span>
               </summary>
-              <div className='px-6 pb-5 text-sm text-neutral-700'>{it.a}</div>
+              <p className='mt-4 text-neutral-400 text-base'>{it.a}</p>
             </details>
           ))}
         </div>
@@ -256,25 +277,30 @@ function FAQ() {
 
 function CTA({ onApply }: { onApply: () => void }) {
   return (
-    <section className='bg-neutral-950 text-white py-24'>
-      <div className='mx-auto max-w-7xl px-4'>
-        <div className='rounded-3xl border border-white/10 bg-gradient-to-r from-white/10 to-white/5 p-8 md:p-12 text-center'>
-          <h3 className='text-3xl md:text-4xl font-bold tracking-tight'>
-            Ready to build and sell — not just prototype?
-          </h3>
-          <p className='mt-3 text-neutral-300'>We take a handful of founders each quarter.</p>
-          <div className='mt-6 flex flex-wrap gap-3 justify-center'>
-            <button onClick={onApply} className='px-5 py-3 rounded-2xl bg-white text-neutral-900 font-medium'>Apply now</button>
-            <a
-              href={BOOK_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-3 rounded-2xl border border-white/15 hover:border-white/30 text-white"
-            >
-              Book 30-min
-
-            </a>
-          </div>
+    <section className='py-32'>
+      <div className='mx-auto max-w-5xl px-4 text-center'>
+        <h2 className='text-5xl md:text-6xl font-black leading-tight'>
+          Ready to build and
+          <br />
+          <span className='text-cyan-400'>sell—not just</span>
+          <br />
+          prototype?
+        </h2>
+        <p className='mt-8 text-neutral-400 text-lg max-w-2xl mx-auto'>
+          We take a handful of founders each quarter. Apply if you're serious about building with operators who care about your success.
+        </p>
+        <div className='mt-12 flex flex-wrap gap-4 justify-center'>
+          <button onClick={onApply} className='px-8 py-3 rounded-lg bg-cyan-400 text-slate-950 font-semibold hover:bg-cyan-300 transition'>
+            Apply now
+          </button>
+          <a
+            href={BOOK_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-3 rounded-lg border border-neutral-700 hover:border-cyan-400 hover:text-cyan-400 transition"
+          >
+            Book 30-min call
+          </a>
         </div>
       </div>
     </section>
