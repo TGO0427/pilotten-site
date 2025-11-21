@@ -68,38 +68,39 @@ function Hero({ onApply }: { onApply: () => void }) {
     <section className="relative overflow-hidden pt-32 pb-24 md:pb-40">
       <div className="mx-auto max-w-7xl px-4">
         <div className="grid md:grid-cols-2 gap-12 items-start">
-          {/* Left: Bold headline with cyan accent */}
+          {/* Left: BOLD headline with vibrant accent */}
           <div className="space-y-8">
-            <h1 className="text-5xl md:text-7xl font-black leading-[1.1] tracking-tight">
+            <h1 className="text-6xl md:text-8xl font-black leading-[0.95] tracking-tighter">
               We build your
               <br />
-              <span className="text-cyan-400">MVP</span>
+              <span className="text-lime-300 block">MVP</span>
+              <span className="text-white">&amp; first</span>
               <br />
-              & first customers.
+              <span className="text-lime-300">customers</span>.
             </h1>
-            <p className="text-lg text-neutral-400 max-w-md leading-relaxed">
-              Pay from success. Equity or revenue-share. For selected African B2B founders who want to build and sell, not just prototype.
+            <p className="text-xl text-neutral-200 max-w-lg leading-relaxed font-medium">
+              Pay from success. Equity or revenue-share for African B2B founders who want to build and sell—not just prototype.
             </p>
-            <div className="flex flex-wrap gap-3 pt-4">
-              <button onClick={onApply} className="px-6 py-3 rounded-lg bg-cyan-400 text-slate-950 font-semibold hover:bg-cyan-300 transition">
-                Apply now
+            <div className="flex flex-wrap gap-4 pt-6">
+              <button onClick={onApply} className="px-8 py-4 rounded-none bg-lime-300 text-black font-black text-lg hover:bg-lime-200 transition active:scale-95">
+                APPLY NOW
               </button>
-              <a href="#how" className="px-6 py-3 rounded-lg border border-neutral-600 hover:border-neutral-400 transition">
-                How it works
+              <a href="#how" className="px-8 py-4 rounded-none border-2 border-lime-300 text-lime-300 font-black text-lg hover:bg-lime-300 hover:text-black transition">
+                HOW IT WORKS
               </a>
             </div>
           </div>
 
-          {/* Right: Premium visual (can be illustration or stats later) */}
-          <div className="hidden md:flex items-center justify-center">
-            <div className="text-center space-y-6">
-              <div className="inline-block px-6 py-3 rounded-lg border border-cyan-400/30 bg-cyan-400/5">
-                <p className="text-cyan-400 font-semibold">POPIA • KPI-gated • Operator mindset</p>
-              </div>
-              <div className="text-neutral-500 text-sm space-y-2">
-                <p>• Validation sprint: 2 weeks</p>
-                <p>• Build phase: 8–12 weeks</p>
-                <p>• Pilot & scale: ongoing support</p>
+          {/* Right: Bold visual block */}
+          <div className="hidden md:block">
+            <div className="bg-lime-300 text-black p-12 rounded-none space-y-6">
+              <p className="text-sm font-black uppercase tracking-widest">What we deliver</p>
+              <div className="space-y-4 text-lg font-bold">
+                <p>✓ 2-week validation sprint</p>
+                <p>✓ 8–12 week build phase</p>
+                <p>✓ Pilot support + customer launch</p>
+                <p>✓ KPI-gated equity vesting</p>
+                <p>✓ Fractional team or transition</p>
               </div>
             </div>
           </div>
@@ -136,19 +137,19 @@ function HowItWorks() {
     <section id="how" className="py-32">
       <div className="mx-auto max-w-7xl px-4">
         <div className="mb-20">
-          <h2 className="text-4xl md:text-5xl font-black">How we work</h2>
-          <div className="w-12 h-1 bg-cyan-400 mt-4"></div>
+          <h2 className="text-6xl md:text-7xl font-black">THE PROCESS</h2>
+          <div className="w-32 h-2 bg-lime-300 mt-6"></div>
         </div>
 
-        <div className="space-y-16">
+        <div className="space-y-12">
           {steps.map((s, i) => (
-            <div key={i} className="grid md:grid-cols-12 gap-8 items-start">
+            <div key={i} className="grid md:grid-cols-12 gap-8 items-start pb-12 border-b border-neutral-800">
               <div className="md:col-span-2">
-                <div className="text-6xl font-black text-neutral-700">{s.num}</div>
+                <div className="text-8xl font-black text-lime-300">{s.num}</div>
               </div>
               <div className="md:col-span-10">
-                <h3 className="text-2xl font-bold mb-2">{s.title}</h3>
-                <p className="text-neutral-400 text-lg max-w-2xl">{s.desc}</p>
+                <h3 className="text-3xl font-black mb-3 uppercase">{s.title}</h3>
+                <p className="text-neutral-300 text-lg max-w-2xl font-medium">{s.desc}</p>
               </div>
             </div>
           ))}
@@ -160,29 +161,33 @@ function HowItWorks() {
 
 function WhyUs() {
   const bullets = [
-    { title: 'Performance-triggered', desc: 'Equity vests only when KPIs hit.' },
-    { title: 'Vertical modules', desc: 'Logistics, FMCG, Fintech building blocks.' },
-    { title: 'GTM included', desc: 'We help close pilot customers.' },
-    { title: 'Transparent legal', desc: 'SA-ready SAFE/SSA, IP escrow, POPIA.' },
+    { title: 'PERFORMANCE-TRIGGERED', desc: 'Equity vests only when KPIs hit.' },
+    { title: 'VERTICAL MODULES', desc: 'Logistics, FMCG, Fintech building blocks.' },
+    { title: 'GTM INCLUDED', desc: 'We help close pilot customers.' },
+    { title: 'TRANSPARENT LEGAL', desc: 'SA-ready SAFE/SSA, IP escrow, POPIA.' },
   ]
   return (
-    <section className="py-32">
+    <section className="py-32 bg-black">
       <div className="mx-auto max-w-7xl px-4">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-4xl md:text-5xl font-black leading-tight">
-              Built for <span className="text-cyan-400">operators</span>, not just devs.
+            <h2 className="text-5xl md:text-6xl font-black leading-tight">
+              Built for
+              <br />
+              <span className="text-lime-300">OPERATORS.</span>
+              <br />
+              Not devs.
             </h2>
-            <p className="mt-6 text-neutral-400 text-lg">
-              We validate, build, and help you sell. Not a code shop—a growth partnership.
+            <p className="mt-6 text-neutral-200 text-lg font-medium">
+              We validate, build, and help you sell. Not a code shop—a growth partner.
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-6">
             {bullets.map((b) => (
-              <div key={b.title} className="space-y-2">
-                <h4 className="font-semibold text-white">{b.title}</h4>
-                <p className="text-sm text-neutral-500">{b.desc}</p>
+              <div key={b.title} className="space-y-3 bg-slate-900 p-6 border-l-4 border-lime-300">
+                <h4 className="font-black text-white text-sm uppercase">{b.title}</h4>
+                <p className="text-neutral-300 font-medium">{b.desc}</p>
               </div>
             ))}
           </div>
@@ -194,25 +199,24 @@ function WhyUs() {
 
 function Offers({ onApply }: { onApply: () => void }) {
   const cards = [
-    { name: 'Equity', desc: '8–15% via SAFE, KPI-gated vesting + buyback' },
-    { name: 'Revenue-Share', desc: '8–12% of gross revenue, capped at 2.5×' },
-    { name: 'Hybrid', desc: 'Blend of equity + revenue, 1.5× cap' },
+    { name: 'EQUITY', desc: '8–15% SAFE vesting\nKPI-gated', bg: 'bg-lime-300', text: 'text-black' },
+    { name: 'REVENUE-SHARE', desc: '8–12% gross revenue\ncapped 2.5×', bg: 'bg-purple-500', text: 'text-white' },
+    { name: 'HYBRID', desc: 'Equity + revenue blend\n1.5× cap', bg: 'bg-orange-500', text: 'text-white' },
   ]
   return (
     <section id='offers' className='py-32'>
       <div className='mx-auto max-w-7xl px-4'>
-        <div className='mb-16'>
-          <h2 className='text-4xl md:text-5xl font-black'>Flexible terms.</h2>
-          <p className='mt-4 text-neutral-400 text-lg max-w-2xl'>Choose what works for your stage. All POPIA-compliant, transparent, KPI-gated.</p>
-        </div>
+        <h2 className='text-6xl md:text-7xl font-black mb-24'>PICK YOUR TERMS.</h2>
 
         <div className='grid md:grid-cols-3 gap-8'>
           {cards.map((c) => (
-            <div key={c.name} className='group border border-neutral-800 rounded-lg p-8 flex flex-col transition hover:border-cyan-400/50 hover:bg-slate-900/50'>
-              <h3 className='text-2xl font-bold text-white group-hover:text-cyan-400 transition'>{c.name}</h3>
-              <p className='mt-4 text-neutral-400'>{c.desc}</p>
-              <button onClick={onApply} className='mt-8 py-2 px-4 border border-cyan-400 text-cyan-400 rounded hover:bg-cyan-400 hover:text-slate-950 transition font-semibold'>
-                Learn more
+            <div key={c.name} className={`${c.bg} ${c.text} p-12 rounded-none flex flex-col justify-between min-h-80`}>
+              <div>
+                <h3 className='text-3xl font-black leading-tight'>{c.name}</h3>
+                <p className='mt-6 text-lg font-bold whitespace-pre-line'>{c.desc}</p>
+              </div>
+              <button onClick={onApply} className='mt-8 py-3 px-6 bg-white text-black font-black uppercase hover:opacity-90 transition'>
+                Learn More →
               </button>
             </div>
           ))}
@@ -224,21 +228,23 @@ function Offers({ onApply }: { onApply: () => void }) {
 
 function FocusSectors() {
   const sectors = [
-    { title: 'Logistics', desc: 'Dispatch, tracking, route optimization, inventory' },
-    { title: 'FMCG', desc: 'Batch management, traceability, merchandising' },
-    { title: 'Fintech', desc: 'Invoicing, payments, collections, risk' },
+    { title: 'LOGISTICS', desc: 'Dispatch, tracking, route optimization, inventory', bg: 'bg-lime-300', text: 'text-black' },
+    { title: 'FMCG', desc: 'Batch management, traceability, merchandising', bg: 'bg-purple-500', text: 'text-white' },
+    { title: 'FINTECH', desc: 'Invoicing, payments, collections, risk', bg: 'bg-orange-500', text: 'text-white' },
   ]
   return (
     <section id='sectors' className='py-32'>
       <div className='mx-auto max-w-7xl px-4'>
-        <h2 className='text-4xl md:text-5xl font-black mb-16'>We focus on three sectors.</h2>
+        <h2 className='text-6xl md:text-7xl font-black mb-20'>WE OWN<br />THREE SECTORS.</h2>
 
-        <div className='grid md:grid-cols-3 gap-12'>
+        <div className='grid md:grid-cols-3 gap-8'>
           {sectors.map((s) => (
-            <div key={s.title} className='space-y-4'>
-              <div className='w-16 h-1 bg-cyan-400'></div>
-              <h3 className='text-xl font-bold'>{s.title}</h3>
-              <p className='text-neutral-400'>{s.desc}</p>
+            <div key={s.title} className={`${s.bg} ${s.text} p-12 rounded-none min-h-64 flex flex-col justify-between`}>
+              <div>
+                <h3 className='text-3xl font-black uppercase mb-4'>{s.title}</h3>
+                <p className='text-base font-bold'>{s.desc}</p>
+              </div>
+              <p className='text-sm font-black uppercase opacity-70'>Learn more →</p>
             </div>
           ))}
         </div>
@@ -277,29 +283,27 @@ function FAQ() {
 
 function CTA({ onApply }: { onApply: () => void }) {
   return (
-    <section className='py-32'>
+    <section className='py-32 bg-black'>
       <div className='mx-auto max-w-5xl px-4 text-center'>
-        <h2 className='text-5xl md:text-6xl font-black leading-tight'>
-          Ready to build and
+        <h2 className='text-6xl md:text-8xl font-black leading-tight'>
+          READY TO
           <br />
-          <span className='text-cyan-400'>sell—not just</span>
-          <br />
-          prototype?
+          <span className='text-lime-300'>BUILD & SELL?</span>
         </h2>
-        <p className='mt-8 text-neutral-400 text-lg max-w-2xl mx-auto'>
-          We take a handful of founders each quarter. Apply if you're serious about building with operators who care about your success.
+        <p className='mt-8 text-neutral-300 text-xl max-w-3xl mx-auto font-semibold'>
+          We take a handful of founders each quarter. Apply if you're serious about building with operators who care.
         </p>
-        <div className='mt-12 flex flex-wrap gap-4 justify-center'>
-          <button onClick={onApply} className='px-8 py-3 rounded-lg bg-cyan-400 text-slate-950 font-semibold hover:bg-cyan-300 transition'>
-            Apply now
+        <div className='mt-16 flex flex-wrap gap-6 justify-center'>
+          <button onClick={onApply} className='px-10 py-5 rounded-none bg-lime-300 text-black font-black text-xl uppercase hover:bg-lime-200 transition active:scale-95'>
+            APPLY NOW
           </button>
           <a
             href={BOOK_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-3 rounded-lg border border-neutral-700 hover:border-cyan-400 hover:text-cyan-400 transition"
+            className="px-10 py-5 rounded-none border-2 border-lime-300 text-lime-300 font-black text-xl uppercase hover:bg-lime-300 hover:text-black transition"
           >
-            Book 30-min call
+            BOOK CALL
           </a>
         </div>
       </div>
