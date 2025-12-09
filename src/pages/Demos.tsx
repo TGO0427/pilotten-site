@@ -6,34 +6,34 @@ const CONTACT_EMAIL = 'hello@pilotten.africa'
 
 const demos = [
   {
-    id: 'mvp-landing',
-    title: 'Startup MVP Landing Page',
-    tagline: 'From idea to a converting landing page in 48 hours.',
+    id: 'logistics-dispatch',
+    title: 'Logistics Dispatch Dashboard',
+    tagline: 'Real-time fleet tracking and order management.',
     description:
-      'A clean, focused landing page aimed at getting your first 10 users. Includes hero, social proof, pricing, and a simple demo booking form.',
-    demoUrl: 'https://your-mvp-landing-demo-url.com',
-    type: 'Landing Page',
-    stack: ['Next.js', 'Tailwind CSS', 'Vercel'],
+      'Live dispatch board with route optimization, driver assignments, and delivery tracking. Built for a Cape Town logistics startup to manage their first 50 daily deliveries.',
+    demoUrl: 'https://your-logistics-demo-url.com',
+    type: 'MVP',
+    stack: ['React', 'Maps API', 'Real-time DB'],
   },
   {
-    id: 'notion-crm',
-    title: 'Notion CRM + Lead Capture',
-    tagline: 'Simple CRM pipeline for your first 10 customers.',
+    id: 'fmcg-orders',
+    title: 'FMCG Order & Inventory System',
+    tagline: 'From spreadsheets to streamlined ops.',
     description:
-      'Public site + embedded Notion CRM workflow. Great for founders who need a light CRM without committing to a big tool.',
-    demoUrl: 'https://your-notion-crm-demo-url.com',
+      'Mobile-first ordering portal for distributors with batch tracking, stock alerts, and automated invoicing. Helped an FMCG client land their first 12 retail accounts.',
+    demoUrl: 'https://your-fmcg-demo-url.com',
     type: 'Workflow',
-    stack: ['Notion', 'Forms', 'Automation'],
+    stack: ['React Native', 'Node.js', 'PostgreSQL'],
   },
   {
-    id: 'product-waitlist',
-    title: 'Waitlist + Email Capture Funnel',
-    tagline: 'Build an audience before you build the product.',
+    id: 'fintech-invoicing',
+    title: 'SMB Invoicing & Collections',
+    tagline: 'Get paid faster with automated reminders.',
     description:
-      'A simple waitlist funnel with a share/referral loop to help you validate demand early.',
-    demoUrl: 'https://your-waitlist-demo-url.com',
-    type: 'Funnel',
-    stack: ['Next.js', 'Forms', 'Email'],
+      'Simple invoicing tool with payment tracking, automated follow-ups, and cash flow forecasting. Built for a fintech serving African SMBs.',
+    demoUrl: 'https://your-fintech-demo-url.com',
+    type: 'SaaS MVP',
+    stack: ['Next.js', 'Stripe', 'Webhooks'],
   },
 ]
 
