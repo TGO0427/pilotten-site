@@ -6,12 +6,12 @@ const CONTACT_EMAIL = 'hello@pilotten.africa'
 
 const demos = [
   {
-    id: 'logistics-dispatch',
-    title: 'Logistics Dispatch Dashboard',
-    tagline: 'Real-time fleet tracking and order management.',
+    id: 'naviflow',
+    title: 'NaviFlow',
+    tagline: 'Smart logistics costing and route optimization.',
     description:
-      'Live dispatch board with route optimization, driver assignments, and delivery tracking. Built for a Cape Town logistics startup to manage their first 50 daily deliveries.',
-    demoUrl: 'https://your-logistics-demo-url.com',
+      'Real-time cost calculator for logistics operations with route optimization, fuel estimates, and delivery tracking. Built for African logistics startups to price accurately and win deals.',
+    demoUrl: 'https://new-costing-app.vercel.app',
     type: 'MVP',
     stack: ['React', 'Maps API', 'Real-time DB'],
   },
