@@ -8,12 +8,12 @@ const demos = [
   {
     id: 'naviflow',
     title: 'NaviFlow',
-    tagline: 'Smart logistics costing and route optimization.',
+    tagline: 'Instant logistics costing for road, rail, air & ocean freight.',
     description:
-      'Real-time cost calculator for logistics operations with route optimization, fuel estimates, and delivery tracking. Built for African logistics startups to price accurately and win deals.',
+      'Multi-modal freight cost calculator with real-time rates, route optimization, customs duties (HS codes), and weather impact analysis. Helps logistics operators quote accurately and win deals faster.',
     demoUrl: 'https://new-costing-app.vercel.app',
     type: 'MVP',
-    stack: ['React', 'Maps API', 'Real-time DB'],
+    stack: ['Vanilla JS', 'Maps API', 'Weather API'],
   },
   {
     id: 'fmcg-orders',
