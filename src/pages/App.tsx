@@ -125,6 +125,7 @@ function Header({ onApply, mousePosition, scrollY }: { onApply: () => void; mous
           <a href="#how" className="hover:text-white">How it works</a>
           <a href="#offers" className="hover:text-white">Terms & Offers</a>
           <a href="#sectors" className="hover:text-white">Sectors</a>
+          <Link to="/demos" className="hover:text-white">Demos</Link>
           <Link to="/faq" className="hidden">FAQ</Link>
         </nav>
         <div className="flex items-center gap-3">
@@ -195,7 +196,10 @@ function Hero({ onApply, mousePosition, scrollY }: { onApply: () => void; mouseP
               <button onClick={onApply} className="px-8 py-4 rounded-none bg-lime-300 text-black font-black text-lg hover:bg-lime-200 transition active:scale-95">
                 APPLY NOW
               </button>
-              <a href="#how" className="px-8 py-4 rounded-none border-2 border-lime-300 text-lime-300 font-black text-lg hover:bg-lime-300 hover:text-black transition">
+              <Link to="/demos" className="px-8 py-4 rounded-none border-2 border-lime-300 text-lime-300 font-black text-lg hover:bg-lime-300 hover:text-black transition">
+                SEE LIVE DEMOS
+              </Link>
+              <a href="#how" className="px-8 py-4 rounded-none border-2 border-neutral-600 text-neutral-300 font-black text-lg hover:border-neutral-400 hover:text-white transition">
                 HOW IT WORKS
               </a>
             </div>

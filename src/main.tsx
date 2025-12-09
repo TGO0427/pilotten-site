@@ -6,12 +6,14 @@ import App from './pages/App'
 import Terms from './pages/Terms'
 import Privacy from './pages/Privacy'
 import CaseStudies from './pages/CaseStudies'
+import Demos from './pages/Demos'
 
 const router = createBrowserRouter([
   { path: '/', element: <App /> },
   { path: '/terms', element: <Terms /> },
   { path: '/privacy', element: <Privacy /> },
   { path: '/case-studies', element: <CaseStudies /> },
+  { path: '/demos', element: <Demos /> },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
