@@ -32,12 +32,15 @@ export default function Builders() {
 
       {/* Hero */}
       <section className="mx-auto max-w-4xl px-4 pt-20 pb-16 text-center">
+        <p className="text-xs text-neutral-500 uppercase tracking-widest mb-6">
+          For developers — not clients
+        </p>
         <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
           Build with PilotTen
         </h1>
         <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
-          We partner with exceptional developers who want to ship real products for African startups.
-          No agency grind. No endless meetings. Just meaningful work.
+          This page is for developers applying to join the PilotTen delivery network.
+          We partner with exceptional builders who want to ship real products for African startups.
         </p>
       </section>
 
@@ -53,6 +56,14 @@ export default function Builders() {
             {
               title: 'Full-stack comfort',
               desc: 'Frontend, backend, databases, deployments. You can handle the whole stack.',
+            },
+            {
+              title: 'Landing pages + lead capture',
+              desc: 'You can build conversion-focused pages with forms, tracking, and integrations (our Launch Kit work).',
+            },
+            {
+              title: 'Notion/Airtable + automations',
+              desc: 'You know your way around no-code CRMs, Zapier/Make, and workflow automations (our Lead Engine work).',
             },
             {
               title: 'Clear communicator',
@@ -74,34 +85,42 @@ export default function Builders() {
       {/* How it works */}
       <section className="mx-auto max-w-4xl px-4 py-12">
         <h2 className="text-2xl font-bold mb-8">How it works</h2>
-        <div className="space-y-6">
-          {[
-            {
-              step: '1',
-              title: 'Apply below',
-              desc: 'Tell us about your experience, stack, and what kind of work excites you.',
-            },
-            {
-              step: '2',
-              title: 'Paid trial project',
-              desc: 'If there\'s a fit, we\'ll start with a small paid project (typically R5k-15k). Real work, fair pay.',
-            },
-            {
-              step: '3',
-              title: 'Join the bench',
-              desc: 'Crush it and you join our roster. We match you with projects based on your skills and availability.',
-            },
-          ].map((item) => (
-            <div key={item.step} className="flex gap-4 items-start">
-              <div className="w-8 h-8 rounded-full bg-lime-300 text-black grid place-items-center font-black text-sm shrink-0">
-                {item.step}
-              </div>
-              <div>
-                <h3 className="font-bold">{item.title}</h3>
-                <p className="text-sm text-neutral-400">{item.desc}</p>
-              </div>
+        <div className="space-y-8">
+          <div className="flex gap-4 items-start">
+            <div className="w-8 h-8 rounded-full bg-lime-300 text-black grid place-items-center font-black text-sm shrink-0">
+              1
             </div>
-          ))}
+            <div>
+              <h3 className="font-bold">Apply below</h3>
+              <p className="text-sm text-neutral-400">Tell us about your experience, stack, and what kind of work excites you.</p>
+            </div>
+          </div>
+
+          <div className="flex gap-4 items-start">
+            <div className="w-8 h-8 rounded-full bg-lime-300 text-black grid place-items-center font-black text-sm shrink-0">
+              2
+            </div>
+            <div>
+              <h3 className="font-bold">Paid trial project</h3>
+              <p className="text-sm text-neutral-400 mb-3">
+                If there's a fit, we'll start with a small paid project (4–8 hours, typically R5k–15k). Real work, fair pay.
+              </p>
+              <ul className="text-sm text-neutral-500 space-y-1">
+                <li>• Submit: Vercel link + Loom walkthrough + README</li>
+                <li>• Payment within 5 business days of approval</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="flex gap-4 items-start">
+            <div className="w-8 h-8 rounded-full bg-lime-300 text-black grid place-items-center font-black text-sm shrink-0">
+              3
+            </div>
+            <div>
+              <h3 className="font-bold">Join the roster</h3>
+              <p className="text-sm text-neutral-400">Crush it and you're in. We match you with projects based on your skills and availability.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -113,6 +132,7 @@ export default function Builders() {
           <p><strong className="text-white">Communication:</strong> Daily async updates. Surface blockers early. No surprises.</p>
           <p><strong className="text-white">Delivery:</strong> Ship something usable, then iterate. Perfect is the enemy of shipped.</p>
           <p><strong className="text-white">Ownership:</strong> You own your work end-to-end. We trust you to figure it out.</p>
+          <p><strong className="text-white">No client calls:</strong> You don't handle client communication — PilotTen manages scope, QA, and delivery.</p>
         </div>
       </section>
 
@@ -156,15 +176,26 @@ export default function Builders() {
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs text-neutral-400 mb-1">GitHub / Portfolio URL *</label>
-              <input
-                type="url"
-                name="portfolio"
-                required
-                placeholder="https://"
-                className="w-full rounded-xl bg-neutral-900 border border-white/10 px-4 py-3"
-              />
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs text-neutral-400 mb-1">GitHub URL *</label>
+                <input
+                  type="url"
+                  name="github"
+                  required
+                  placeholder="https://github.com/..."
+                  className="w-full rounded-xl bg-neutral-900 border border-white/10 px-4 py-3"
+                />
+              </div>
+              <div>
+                <label className="block text-xs text-neutral-400 mb-1">Portfolio / live links</label>
+                <input
+                  type="url"
+                  name="portfolio"
+                  placeholder="https://..."
+                  className="w-full rounded-xl bg-neutral-900 border border-white/10 px-4 py-3"
+                />
+              </div>
             </div>
 
             <div>
@@ -176,6 +207,33 @@ export default function Builders() {
                 placeholder="e.g. React, Node, PostgreSQL, AWS"
                 className="w-full rounded-xl bg-neutral-900 border border-white/10 px-4 py-3"
               />
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs text-neutral-400 mb-1">Location / timezone *</label>
+                <input
+                  type="text"
+                  name="location"
+                  required
+                  placeholder="e.g. Cape Town, GMT+2"
+                  className="w-full rounded-xl bg-neutral-900 border border-white/10 px-4 py-3"
+                />
+              </div>
+              <div>
+                <label className="block text-xs text-neutral-400 mb-1">Weekly availability *</label>
+                <select
+                  name="availability"
+                  required
+                  className="w-full rounded-xl bg-neutral-900 border border-white/10 px-4 py-3"
+                >
+                  <option value="">Select...</option>
+                  <option value="10-20 hours">10-20 hours</option>
+                  <option value="20-30 hours">20-30 hours</option>
+                  <option value="30-40 hours">30-40 hours</option>
+                  <option value="Full-time">Full-time available</option>
+                </select>
+              </div>
             </div>
 
             <div>
@@ -190,24 +248,11 @@ export default function Builders() {
             </div>
 
             <div>
-              <label className="block text-xs text-neutral-400 mb-1">Weekly availability (hours)</label>
-              <select
-                name="availability"
-                className="w-full rounded-xl bg-neutral-900 border border-white/10 px-4 py-3"
-              >
-                <option>10-20 hours</option>
-                <option>20-30 hours</option>
-                <option>30-40 hours</option>
-                <option>Full-time available</option>
-              </select>
-            </div>
-
-            <div>
               <label className="block text-xs text-neutral-400 mb-1">Anything else?</label>
               <textarea
                 name="notes"
                 rows={3}
-                placeholder="Location, timezone, rate expectations, etc."
+                placeholder="Rate expectations, preferred project types, etc."
                 className="w-full rounded-xl bg-neutral-900 border border-white/10 px-4 py-3"
               />
             </div>
