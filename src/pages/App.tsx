@@ -579,6 +579,7 @@ function Footer() {
         <div className='flex items-center gap-4'>
           <a href='/terms' className='hover:text-white'>Terms</a>
           <a href='/privacy' className='hover:text-white'>Privacy</a>
+          <a href='/portal' className='hover:text-white'>Client Portal</a>
           <a href='/builders' className='hover:text-white'>Builders</a>
           <a href={`mailto:${CONTACT_EMAIL}`} className='hover:text-white'>{CONTACT_EMAIL}</a>
         </div>

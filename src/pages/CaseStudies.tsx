@@ -83,6 +83,7 @@ function Footer() {
         <div className="flex items-center gap-4">
           <Link to="/terms" className="hover:text-white">Terms</Link>
           <Link to="/privacy" className="hover:text-white">Privacy</Link>
+          <Link to="/portal" className="hover:text-white">Client Portal</Link>
           <Link to="/builders" className="hover:text-white">Builders</Link>
           <a href="mailto:hello@pilotten.africa" className="hover:text-white">hello@pilotten.africa</a>
         </div>
