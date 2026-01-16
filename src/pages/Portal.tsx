@@ -1,15 +1,39 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const STUDIO_NAME = 'PilotTen'
 const CONTACT_EMAIL = 'hello@pilotten.africa'
 
 export default function Portal() {
+  const [portalUrl, setPortalUrl] = useState('')
+  const [error, setError] = useState('')
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setError('')
+
+    const trimmed = portalUrl.trim()
+    if (!trimmed) {
+      setError('Please enter your portal link')
+      return
+    }
+
+    // Validate it's a Notion URL
+    if (!trimmed.includes('notion.so') && !trimmed.includes('notion.site')) {
+      setError('Please enter a valid Notion portal link')
+      return
+    }
+
+    // Open in new tab
+    window.open(trimmed, '_blank', 'noopener,noreferrer')
+  }
+
   return (
     <main className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col">
       <Header />
 
       <section className="flex-1 flex items-center justify-center px-4">
-        <div className="max-w-md text-center">
+        <div className="max-w-md w-full text-center">
           <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-lime-300 text-black grid place-items-center">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
@@ -18,10 +42,30 @@ export default function Portal() {
             </svg>
           </div>
           <h1 className="text-3xl font-black tracking-tight mb-4">Client Portal</h1>
-          <p className="text-neutral-400 mb-6">
-            Your project portal link was sent in your welcome email.
-            Check your inbox for an email from PilotTen with your unique access link.
+          <p className="text-neutral-400 mb-8">
+            Enter your project portal link from your welcome email, or check your inbox for an email from PilotTen.
           </p>
+
+          {/* Portal link input */}
+          <form onSubmit={handleSubmit} className="mb-6">
+            <div className="flex gap-2">
+              <input
+                type="url"
+                value={portalUrl}
+                onChange={(e) => setPortalUrl(e.target.value)}
+                placeholder="Paste your Notion portal link"
+                className="flex-1 px-4 py-3 rounded-xl bg-neutral-900 border border-white/10 text-white placeholder:text-neutral-500 focus:outline-none focus:border-lime-300"
+              />
+              <button
+                type="submit"
+                className="px-5 py-3 rounded-xl bg-lime-300 text-black font-bold hover:bg-lime-200 transition"
+              >
+                Open
+              </button>
+            </div>
+            {error && <p className="mt-2 text-sm text-red-400 text-left">{error}</p>}
+          </form>
+
           <div className="bg-neutral-900 border border-white/10 rounded-xl p-4 text-sm text-neutral-400">
             <p className="mb-3">Can't find your portal link?</p>
             <a
