@@ -21,7 +21,7 @@ export default function Portal() {
 
     // Validate it's a Notion URL
     if (!trimmed.includes('notion.so') && !trimmed.includes('notion.site')) {
-      setError('Please enter a valid Notion portal link')
+      setError('Please paste a valid Notion portal link (https://www.notion.so/...)')
       return
     }
 
@@ -88,6 +88,7 @@ export default function Portal() {
               </button>
             </div>
             {error && <p className="mt-2 text-sm text-red-400">{error}</p>}
+            <p className="mt-2 text-xs text-neutral-500">You may be asked to log in to Notion to access your portal.</p>
           </form>
 
           {/* Security note */}
